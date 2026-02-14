@@ -1,13 +1,15 @@
-// 상품 상세 페이지 — 이미지 갤러리, 옵션 선택, 수량, 장바구니 담기, 리뷰
-// 'use client' → 옵션 선택, 수량 변경 등 인터랙션 필요
+// 상품 상세 페이지 — 이미지 갤러리, 옵션 선택, 수량, 장바구니 담기, 찜하기, 리뷰
+// 'use client' → 옵션 선택, 수량 변경, 장바구니/찜 인터랙션
 
 'use client'
 
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { products } from '@/lib/products'
 import { formatPrice } from '@/lib/utils'
+import { useCart } from '@/contexts/CartContext'
+import { useWishlist } from '@/contexts/WishlistContext'
 import ProductGallery from '@/components/product/ProductGallery'
 import ProductReview from '@/components/product/ProductReview'
 import ProductCard from '@/components/product/ProductCard'
@@ -15,10 +17,14 @@ import Badge from '@/components/ui/Badge'
 
 export default function ProductDetailPage() {
   const { id } = useParams()
+  const router = useRouter()
+  const { addToCart } = useCart()
+  const { toggleWishlist, isInWishlist } = useWishlist()
   const product = products.find((p) => p.id === id)
 
   const [selectedOption, setSelectedOption] = useState(0)
   const [quantity, setQuantity] = useState(1)
+  const [showCartAlert, setShowCartAlert] = useState(false)
 
   // 상품을 찾을 수 없는 경우
   if (!product) {
@@ -58,6 +64,22 @@ export default function ProductDetailPage() {
   function handleQuantityChange(delta) {
     setQuantity((prev) => Math.max(1, Math.min(prev + delta, product.stock)))
   }
+
+  // 장바구니 담기 핸들러
+  function handleAddToCart() {
+    addToCart(product.id, selectedOption, quantity)
+    setShowCartAlert(true)
+    setTimeout(() => setShowCartAlert(false), 2000)
+  }
+
+  // 바로 구매 핸들러
+  function handleBuyNow() {
+    addToCart(product.id, selectedOption, quantity)
+    router.push('/cart')
+  }
+
+  // 찜 여부
+  const wishlisted = isInWishlist(product.id)
 
   return (
     <div className="bg-cream min-h-screen">
@@ -205,15 +227,54 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            {/* 장바구니 + 구매 버튼 */}
+            {/* 찜하기 + 장바구니 + 구매 버튼 */}
             <div className="flex gap-3">
-              <button className="flex-1 bg-gold text-white rounded-button py-3 font-body font-medium text-body hover:scale-[1.02] hover:shadow-warm-md transition-all duration-300 h-14">
+              {/* 찜하기 */}
+              <button
+                onClick={() => toggleWishlist(product.id)}
+                className={`w-14 h-14 flex items-center justify-center border rounded-button transition-all duration-300 flex-shrink-0 ${
+                  wishlisted
+                    ? 'border-rose bg-rose/10 text-rose'
+                    : 'border-neutral-200 text-neutral-300 hover:border-rose hover:text-rose'
+                }`}
+                aria-label={wishlisted ? '찜 해제' : '찜하기'}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill={wishlisted ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </button>
+
+              {/* 장바구니 담기 */}
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 bg-gold text-white rounded-button py-3 font-body font-medium text-body hover:scale-[1.02] hover:shadow-warm-md transition-all duration-300 h-14"
+              >
                 장바구니 담기
               </button>
-              <button className="flex-1 border border-caramel text-chocolate-light rounded-button py-3 font-body font-medium text-body hover:bg-caramel hover:text-white transition-all duration-300 h-14">
+
+              {/* 바로 구매 */}
+              <button
+                onClick={handleBuyNow}
+                className="flex-1 border border-caramel text-chocolate-light rounded-button py-3 font-body font-medium text-body hover:bg-caramel hover:text-white transition-all duration-300 h-14"
+              >
                 바로 구매
               </button>
             </div>
+
+            {/* 장바구니 담기 알림 */}
+            {showCartAlert && (
+              <div className="mt-3 p-3 bg-success/10 border border-success/20 rounded-xl flex items-center gap-2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success flex-shrink-0">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span className="font-body text-caption text-success">
+                  장바구니에 담았습니다
+                </span>
+                <Link href="/cart" className="ml-auto font-body text-caption text-gold hover:underline">
+                  바로가기
+                </Link>
+              </div>
+            )}
 
             {/* 상품 정보 */}
             <div className="mt-8 space-y-3">

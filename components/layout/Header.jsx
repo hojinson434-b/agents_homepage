@@ -1,4 +1,4 @@
-// 헤더 컴포넌트 — 반응형 네비게이션, 로고, 장바구니/검색 아이콘
+// 헤더 컴포넌트 — 반응형 네비게이션, 로고, 장바구니/검색 아이콘, 장바구니 수량 뱃지
 // 모바일: 햄버거 메뉴, 데스크톱: 가로 네비게이션
 
 'use client'
@@ -6,6 +6,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import MobileMenu from '@/components/layout/MobileMenu'
+import { useCart } from '@/contexts/CartContext'
 
 // 네비게이션 링크 목록
 const navLinks = [
@@ -18,6 +19,7 @@ const navLinks = [
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { cartCount } = useCart()
 
   return (
     <header className="bg-white shadow-warm-sm sticky top-0 z-40">
@@ -58,17 +60,22 @@ export default function Header() {
               </svg>
             </Link>
 
-            {/* 장바구니 */}
+            {/* 장바구니 (수량 뱃지 포함) */}
             <Link
               href="/cart"
               className="w-12 h-12 flex items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200 relative"
-              aria-label="장바구니"
+              aria-label={`장바구니${cartCount > 0 ? ` (${cartCount}개)` : ''}`}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <path d="M16 10a4 4 0 01-8 0" />
               </svg>
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-gold text-white font-accent text-small font-medium rounded-full flex items-center justify-center">
+                  {cartCount > 99 ? '99' : cartCount}
+                </span>
+              )}
             </Link>
 
             {/* 마이페이지 */}
