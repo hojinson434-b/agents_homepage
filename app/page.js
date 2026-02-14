@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <main className="bg-cream min-h-screen">
+    <div className="bg-cream min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-12">
 
         {/* 헤더 */}
@@ -167,7 +167,7 @@ export default function Home() {
           </p>
         </footer>
       </div>
-    </main>
+    </div>
   )
 }
 

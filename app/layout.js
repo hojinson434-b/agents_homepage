@@ -1,5 +1,8 @@
-// 루트 레이아웃 — 전체 앱에 메타데이터 적용 (폰트는 globals.css에서 @import)
+// 루트 레이아웃 — 전체 앱에 Header + Footer 자동 적용
+// 폰트는 globals.css에서 @import로 로드
 import './globals.css'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
 export const metadata = {
   title: 'Douceur | 프리미엄 디저트 쇼핑몰',
@@ -10,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body className="antialiased">
-        {children}
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
