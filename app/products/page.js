@@ -1,15 +1,39 @@
 // 상품 목록 페이지 — 카테고리 필터, 정렬, 검색 기능
-// 'use client' → 필터/검색 인터랙션 필요
+// useSearchParams는 Suspense 바운더리 필요
 
 'use client'
 
-import { useState, useMemo } from 'react'
+import { Suspense, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { products } from '@/lib/products'
 import ProductFilter from '@/components/product/ProductFilter'
 import ProductGrid from '@/components/product/ProductGrid'
 
+// Suspense로 감싸는 래퍼
 export default function ProductsPage() {
+  return (
+    <Suspense fallback={<ProductsLoading />}>
+      <ProductsContent />
+    </Suspense>
+  )
+}
+
+// 로딩 상태
+function ProductsLoading() {
+  return (
+    <div className="bg-cream min-h-screen">
+      <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+        <div className="mb-8">
+          <div className="h-10 w-48 bg-neutral-200 rounded-xl animate-pulse" />
+          <div className="h-5 w-32 bg-neutral-100 rounded-xl animate-pulse mt-3" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 실제 상품 목록 컨텐츠
+function ProductsContent() {
   const searchParams = useSearchParams()
   const categoryFromUrl = searchParams.get('category') || 'all'
 
