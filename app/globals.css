@@ -1,0 +1,25 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── 기본 스타일 ── */
+@layer base {
+  body {
+    @apply bg-cream font-body text-chocolate;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-chocolate font-bold;
+  }
+
+  a {
+    @apply text-caramel hover:text-gold transition-colors duration-200;
+  }
+
+  ::selection {
+    @apply bg-gold/20 text-chocolate;
+  }
+}
