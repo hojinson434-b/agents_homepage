@@ -2,26 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── 기본 스타일 ── */
+@layer base {
+  body {
+    @apply bg-cream font-body text-chocolate;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-chocolate font-bold;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  a {
+    @apply text-caramel hover:text-gold transition-colors duration-200;
+  }
+
+  ::selection {
+    @apply bg-gold/20 text-chocolate;
   }
 }
