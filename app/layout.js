@@ -1,6 +1,7 @@
-// 루트 레이아웃 — 전체 앱에 Header + Footer 자동 적용
+// 루트 레이아웃 — 전체 앱에 Header + Footer + Context Provider 적용
 // 폰트는 globals.css에서 @import로 로드
 import './globals.css'
+import Providers from '@/components/Providers'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
@@ -13,9 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body className="antialiased">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
