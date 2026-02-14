@@ -1,27 +1,5 @@
-// 루트 레이아웃 — 전체 앱에 폰트 + 메타데이터 적용
-import { Playfair_Display, Noto_Sans_KR, DM_Sans } from 'next/font/google'
+// 루트 레이아웃 — 전체 앱에 메타데이터 적용 (폰트는 globals.css에서 @import)
 import './globals.css'
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
-
-const notoSansKR = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-noto-sans-kr',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
 
 export const metadata = {
   title: 'Douceur | 프리미엄 디저트 쇼핑몰',
@@ -30,7 +8,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko" className={`${playfair.variable} ${notoSansKR.variable} ${dmSans.variable}`}>
+    <html lang="ko">
       <body className="antialiased">
         {children}
       </body>

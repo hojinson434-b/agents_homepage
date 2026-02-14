@@ -28,9 +28,9 @@ module.exports = {
 
       /* ── 폰트 ── */
       fontFamily: {
-        display: ['var(--font-playfair)', 'serif'],
-        body:    ['var(--font-noto-sans-kr)', 'sans-serif'],
-        accent:  ['var(--font-dm-sans)', 'sans-serif'],
+        display: ['"Playfair Display"', 'serif'],
+        body:    ['"Noto Sans KR"', 'sans-serif'],
+        accent:  ['"DM Sans"', 'sans-serif'],
       },
 
       /* ── 폰트 크기 (모바일 퍼스트) ── */
