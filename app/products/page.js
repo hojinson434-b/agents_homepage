@@ -3,7 +3,7 @@
 
 'use client'
 
-import { Suspense, useState, useMemo } from 'react'
+import { Suspense, useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { products } from '@/lib/products'
 import ProductFilter from '@/components/product/ProductFilter'
@@ -40,6 +40,11 @@ function ProductsContent() {
   const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl)
   const [sortBy, setSortBy] = useState('popular')
   const [searchQuery, setSearchQuery] = useState('')
+
+  // URL 카테고리 파라미터 변경 시 상태 동기화
+  useEffect(() => {
+    setSelectedCategory(categoryFromUrl)
+  }, [categoryFromUrl])
 
   // 필터링 + 정렬 로직
   const filteredProducts = useMemo(() => {
