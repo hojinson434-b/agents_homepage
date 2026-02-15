@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import MobileMenu from '@/components/layout/MobileMenu'
 import { useCart } from '@/contexts/CartContext'
+import { useAuth } from '@/contexts/AuthContext'
 
 // 네비게이션 링크 목록
 const navLinks = [
@@ -20,6 +21,7 @@ const navLinks = [
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { cartCount } = useCart()
+  const { isLoggedIn, user } = useAuth()
 
   return (
     <header className="bg-white shadow-warm-sm sticky top-0 z-40">
@@ -78,17 +80,31 @@ export default function Header() {
               )}
             </Link>
 
-            {/* 마이페이지 */}
-            <Link
-              href="/mypage"
-              className="hidden md:flex w-12 h-12 items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200"
-              aria-label="마이페이지"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </Link>
+            {/* 마이페이지 / 로그인 */}
+            {isLoggedIn ? (
+              <Link
+                href="/mypage"
+                className="hidden md:flex w-12 h-12 items-center justify-center text-gold transition-colors duration-200"
+                aria-label="마이페이지"
+                title={user?.name}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </Link>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="hidden md:flex w-12 h-12 items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200"
+                aria-label="로그인"
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </Link>
+            )}
 
             {/* 모바일 햄버거 메뉴 버튼 */}
             <button
