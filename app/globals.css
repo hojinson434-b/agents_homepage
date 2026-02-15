@@ -22,4 +22,9 @@
   ::selection {
     @apply bg-gold/20 text-chocolate;
   }
+
+  /* 키보드 포커스 시 눈에 보이는 아웃라인 */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
 }

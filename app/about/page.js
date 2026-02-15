@@ -2,6 +2,11 @@
 
 import Link from 'next/link'
 
+export const metadata = {
+  title: '브랜드 소개 | Douceur',
+  description: 'Douceur의 브랜드 스토리와 철학을 소개합니다. 파리 파티스리의 정통 레시피로 만든 프리미엄 디저트.',
+}
+
 // 브랜드 가치
 const values = [
   {

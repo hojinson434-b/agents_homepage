@@ -85,13 +85,13 @@ export default function Footer() {
         <div className="border-t border-neutral-500 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="font-body text-small text-neutral-400">
-              &copy; 2024 Douceur. All rights reserved.
+              &copy; 2025 Douceur. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="#" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
+              <Link href="/notice" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
                 이용약관
               </Link>
-              <Link href="#" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
+              <Link href="/notice" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
                 개인정보처리방침
               </Link>
             </div>

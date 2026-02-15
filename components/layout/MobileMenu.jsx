@@ -5,8 +5,10 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function MobileMenu({ isOpen, onClose, navLinks }) {
+  const { isLoggedIn, user, logout } = useAuth()
   // 열릴 때 스크롤 방지
   useEffect(() => {
     if (isOpen) {
@@ -65,22 +67,45 @@ export default function MobileMenu({ isOpen, onClose, navLinks }) {
           ))}
         </div>
 
-        {/* 하단 링크 */}
+        {/* 하단 링크 — 로그인 상태에 따라 표시 */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-neutral-200 p-4">
-          <Link
-            href="/auth/login"
-            onClick={onClose}
-            className="block w-full text-center py-3 font-body text-body text-chocolate-light hover:text-gold transition-colors duration-200"
-          >
-            로그인
-          </Link>
-          <Link
-            href="/mypage"
-            onClick={onClose}
-            className="block w-full text-center py-3 font-body text-body text-chocolate-light hover:text-gold transition-colors duration-200"
-          >
-            마이페이지
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <p className="text-center font-body text-small text-neutral-400 mb-2">
+                {user?.name}님 환영합니다
+              </p>
+              <Link
+                href="/mypage"
+                onClick={onClose}
+                className="block w-full text-center py-3 font-body text-body text-chocolate-light hover:text-gold transition-colors duration-200"
+              >
+                마이페이지
+              </Link>
+              <button
+                onClick={() => { logout(); onClose(); }}
+                className="block w-full text-center py-3 font-body text-body text-neutral-400 hover:text-error transition-colors duration-200"
+              >
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                onClick={onClose}
+                className="block w-full text-center py-3 font-body text-body text-chocolate-light hover:text-gold transition-colors duration-200"
+              >
+                로그인
+              </Link>
+              <Link
+                href="/auth/signup"
+                onClick={onClose}
+                className="block w-full text-center py-3 font-body text-body text-caramel hover:text-gold transition-colors duration-200"
+              >
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </>
