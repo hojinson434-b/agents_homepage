@@ -30,13 +30,13 @@ export default function AdminPage() {
   }, [])
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="font-display text-heading-1 text-chocolate">
+            <h1 className="font-display text-heading-1 text-chocolate dark:text-cream">
               관리자 대시보드
             </h1>
             <p className="font-body text-caption text-neutral-400 mt-1">
@@ -52,7 +52,7 @@ export default function AdminPage() {
         </div>
 
         {/* 탭 */}
-        <div className="flex gap-1 mb-8 border-b border-neutral-200">
+        <div className="flex gap-1 mb-8 border-b border-neutral-200 dark:border-dm-border">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -60,7 +60,7 @@ export default function AdminPage() {
               className={`px-5 py-3 font-body text-caption font-medium transition-all duration-200 border-b-2 -mb-px ${
                 activeTab === tab.id
                   ? 'text-gold border-gold'
-                  : 'text-neutral-400 border-transparent hover:text-chocolate-light'
+                  : 'text-neutral-400 border-transparent hover:text-chocolate-light dark:text-neutral-300'
               }`}
             >
               {tab.label}
@@ -116,7 +116,7 @@ function DashboardTab({ orders }) {
       {/* 통계 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-white rounded-card shadow-warm-sm p-6">
+          <div key={stat.label} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
             <p className="font-body text-caption text-neutral-400 mb-1">{stat.label}</p>
             <p className={`font-accent text-heading-2 font-medium ${stat.color}`}>
               {stat.value}
@@ -129,8 +129,8 @@ function DashboardTab({ orders }) {
       {/* 하단 2컬럼 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 인기 상품 */}
-        <div className="bg-white rounded-card shadow-warm-sm p-6">
-          <h3 className="font-display text-heading-3 text-chocolate mb-4">
+        <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
+          <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-4">
             인기 상품 TOP 5
           </h3>
           {topProducts.length > 0 ? (
@@ -138,11 +138,11 @@ function DashboardTab({ orders }) {
               {topProducts.map(([name, count], index) => (
                 <div key={name} className="flex items-center gap-3">
                   <span className={`w-6 h-6 rounded-full flex items-center justify-center font-accent text-small font-medium ${
-                    index === 0 ? 'bg-gold text-white' : 'bg-cream text-neutral-400'
+                    index === 0 ? 'bg-gold text-white' : 'bg-cream dark:bg-dm-card text-neutral-400'
                   }`}>
                     {index + 1}
                   </span>
-                  <span className="flex-1 font-body text-caption text-chocolate truncate">
+                  <span className="flex-1 font-body text-caption text-chocolate dark:text-cream truncate">
                     {name}
                   </span>
                   <span className="font-accent text-caption text-caramel font-medium">
@@ -157,8 +157,8 @@ function DashboardTab({ orders }) {
         </div>
 
         {/* 최근 주문 */}
-        <div className="bg-white rounded-card shadow-warm-sm p-6">
-          <h3 className="font-display text-heading-3 text-chocolate mb-4">
+        <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
+          <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-4">
             최근 주문
           </h3>
           {orders.length > 0 ? (
@@ -166,7 +166,7 @@ function DashboardTab({ orders }) {
               {orders.slice(0, 5).map((order) => (
                 <div key={order.id} className="flex items-center justify-between py-2 border-b border-neutral-50 last:border-b-0">
                   <div>
-                    <p className="font-accent text-small text-chocolate font-medium">
+                    <p className="font-accent text-small text-chocolate dark:text-cream font-medium">
                       {order.id}
                     </p>
                     <p className="font-body text-small text-neutral-400">
@@ -191,28 +191,28 @@ function DashboardTab({ orders }) {
       </div>
 
       {/* 상품 현황 */}
-      <div className="bg-white rounded-card shadow-warm-sm p-6">
-        <h3 className="font-display text-heading-3 text-chocolate mb-4">
+      <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
+        <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-4">
           상품 현황
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-3 bg-cream rounded-xl">
-            <p className="font-accent text-heading-2 text-chocolate font-medium">{products.length}</p>
+          <div className="text-center p-3 bg-cream dark:bg-dm-card rounded-xl">
+            <p className="font-accent text-heading-2 text-chocolate dark:text-cream font-medium">{products.length}</p>
             <p className="font-body text-small text-neutral-400">전체 상품</p>
           </div>
-          <div className="text-center p-3 bg-cream rounded-xl">
+          <div className="text-center p-3 bg-cream dark:bg-dm-card rounded-xl">
             <p className="font-accent text-heading-2 text-success font-medium">
               {products.filter((p) => p.stock > 10).length}
             </p>
             <p className="font-body text-small text-neutral-400">재고 충분</p>
           </div>
-          <div className="text-center p-3 bg-cream rounded-xl">
+          <div className="text-center p-3 bg-cream dark:bg-dm-card rounded-xl">
             <p className="font-accent text-heading-2 text-warning font-medium">
               {products.filter((p) => p.stock > 0 && p.stock <= 10).length}
             </p>
             <p className="font-body text-small text-neutral-400">재고 부족</p>
           </div>
-          <div className="text-center p-3 bg-cream rounded-xl">
+          <div className="text-center p-3 bg-cream dark:bg-dm-card rounded-xl">
             <p className="font-accent text-heading-2 text-error font-medium">
               {products.filter((p) => p.stock === 0).length}
             </p>
@@ -227,9 +227,9 @@ function DashboardTab({ orders }) {
 // 상품 관리 탭
 function ProductsTab() {
   return (
-    <div className="bg-white rounded-card shadow-warm-sm overflow-hidden">
+    <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm overflow-hidden">
       {/* 테이블 헤더 */}
-      <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-cream-dark font-body text-small text-neutral-400 font-medium">
+      <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-cream-dark dark:bg-dm-card font-body text-small text-neutral-400 font-medium">
         <div className="col-span-1">ID</div>
         <div className="col-span-3">상품명</div>
         <div className="col-span-2">카테고리</div>
@@ -245,11 +245,11 @@ function ProductsTab() {
           <div key={product.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-6 py-4 hover:bg-cream/50 transition-colors duration-200">
             {/* 모바일: 상품명 + 정보 */}
             <div className="md:col-span-1 font-accent text-small text-neutral-400">
-              <span className="md:hidden font-medium text-chocolate">#{index + 1} </span>
+              <span className="md:hidden font-medium text-chocolate dark:text-cream">#{index + 1} </span>
               <span className="hidden md:inline">{index + 1}</span>
             </div>
             <div className="md:col-span-3">
-              <Link href={`/products/${product.id}`} className="font-body text-caption text-chocolate font-medium hover:text-gold transition-colors duration-200">
+              <Link href={`/products/${product.id}`} className="font-body text-caption text-chocolate dark:text-cream font-medium hover:text-gold transition-colors duration-200">
                 {product.name}
               </Link>
             </div>
@@ -267,7 +267,7 @@ function ProductsTab() {
                   </span>
                 </div>
               ) : (
-                <span className="font-accent text-caption text-chocolate font-medium">
+                <span className="font-accent text-caption text-chocolate dark:text-cream font-medium">
                   {formatPrice(product.price)}원
                 </span>
               )}
@@ -279,7 +279,7 @@ function ProductsTab() {
                 {product.stock}
               </span>
             </div>
-            <div className="md:col-span-1 font-body text-caption text-chocolate">
+            <div className="md:col-span-1 font-body text-caption text-chocolate dark:text-cream">
               {product.rating}
             </div>
             <div className="md:col-span-2">
@@ -311,7 +311,7 @@ function ProductsTab() {
 function OrdersTab({ orders }) {
   if (orders.length === 0) {
     return (
-      <div className="bg-white rounded-card shadow-warm-sm p-12 text-center">
+      <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-12 text-center">
         <p className="font-body text-body text-neutral-400">아직 주문이 없습니다.</p>
       </div>
     )
@@ -320,11 +320,11 @@ function OrdersTab({ orders }) {
   return (
     <div className="space-y-4">
       {orders.map((order) => (
-        <div key={order.id} className="bg-white rounded-card shadow-warm-sm p-6">
+        <div key={order.id} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
             {/* 주문 정보 */}
             <div>
-              <p className="font-accent text-caption text-chocolate font-medium">
+              <p className="font-accent text-caption text-chocolate dark:text-cream font-medium">
                 {order.id}
               </p>
               <p className="font-body text-small text-neutral-400">
@@ -344,19 +344,19 @@ function OrdersTab({ orders }) {
           </div>
 
           {/* 배송 정보 */}
-          <div className="bg-cream rounded-xl p-4 mb-4">
+          <div className="bg-cream dark:bg-dm-card rounded-xl p-4 mb-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <div>
                 <span className="font-body text-small text-neutral-400">받는 분: </span>
-                <span className="font-body text-caption text-chocolate">{order.shipping.name}</span>
+                <span className="font-body text-caption text-chocolate dark:text-cream">{order.shipping.name}</span>
               </div>
               <div>
                 <span className="font-body text-small text-neutral-400">연락처: </span>
-                <span className="font-body text-caption text-chocolate">{order.shipping.phone}</span>
+                <span className="font-body text-caption text-chocolate dark:text-cream">{order.shipping.phone}</span>
               </div>
               <div>
                 <span className="font-body text-small text-neutral-400">주소: </span>
-                <span className="font-body text-caption text-chocolate">{order.shipping.address}</span>
+                <span className="font-body text-caption text-chocolate dark:text-cream">{order.shipping.address}</span>
               </div>
             </div>
           </div>
@@ -365,10 +365,10 @@ function OrdersTab({ orders }) {
           <div className="space-y-2">
             {order.items.map((item, index) => (
               <div key={index} className="flex justify-between items-center">
-                <span className="font-body text-caption text-chocolate-light">
+                <span className="font-body text-caption text-chocolate-light dark:text-neutral-300">
                   {item.productName} ({item.optionName} x {item.quantity})
                 </span>
-                <span className="font-body text-caption text-chocolate font-medium">
+                <span className="font-body text-caption text-chocolate dark:text-cream font-medium">
                   {formatPrice(item.unitPrice * item.quantity)}원
                 </span>
               </div>
