@@ -13,17 +13,17 @@ export default function Input({
       {label && (
         <label
           htmlFor={id}
-          className="block font-body text-caption text-chocolate-light mb-2"
+          className="block font-body text-caption text-chocolate-light dark:text-neutral-300 mb-2"
         >
           {label}
         </label>
       )}
       <input
         id={id}
-        className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+        className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card outline-none transition-all duration-200 ${
           error
             ? 'border-error focus:border-error focus:ring-2 focus:ring-error/20'
-            : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+            : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
         } ${className}`}
         {...props}
       />

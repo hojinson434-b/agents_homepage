@@ -35,9 +35,9 @@ export default function ProductCard({ product }) {
 
   return (
     <Link href={`/products/${id}`}>
-      <div className="bg-white rounded-card shadow-warm-sm overflow-hidden hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+      <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border overflow-hidden hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
         {/* 이미지 영역 */}
-        <div className="bg-cream-dark h-48 lg:h-56 flex items-center justify-center relative">
+        <div className="bg-cream-dark dark:bg-dm-card h-48 lg:h-56 flex items-center justify-center relative">
           <span className="font-body text-caption text-neutral-300">600 x 450</span>
 
           {/* 배지 */}
@@ -52,7 +52,7 @@ export default function ProductCard({ product }) {
           {/* 찜하기 버튼 */}
           <button
             onClick={handleWishlistClick}
-            className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 flex items-center justify-center transition-all duration-200 hover:scale-110 ${
+            className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 dark:bg-dm-surface/80 flex items-center justify-center transition-all duration-200 hover:scale-110 ${
               wishlisted ? 'text-rose' : 'text-neutral-300 hover:text-rose'
             }`}
             aria-label={wishlisted ? '찜 해제' : '찜하기'}
@@ -74,7 +74,7 @@ export default function ProductCard({ product }) {
 
         {/* 상품 정보 */}
         <div className="p-4 flex flex-col flex-1">
-          <h3 className="font-display text-heading-3 text-chocolate mb-1 truncate">
+          <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-1 truncate">
             {name}
           </h3>
           <p className="font-body text-caption text-neutral-400 mb-3 line-clamp-1">

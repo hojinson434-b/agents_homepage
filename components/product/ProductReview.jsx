@@ -9,12 +9,12 @@ export default function ProductReview({ productId, rating, reviewCount }) {
 
   return (
     <section className="mt-12">
-      <h2 className="font-display text-heading-2 text-chocolate mb-6">
+      <h2 className="font-display text-heading-2 text-chocolate dark:text-cream mb-6">
         고객 리뷰
       </h2>
 
       {/* 별점 요약 */}
-      <div className="flex items-center gap-4 mb-8 p-6 bg-cream rounded-card">
+      <div className="flex items-center gap-4 mb-8 p-6 bg-cream dark:bg-dm-bg rounded-card">
         <div className="text-center">
           <p className="font-display text-hero-mobile text-gold">{rating}</p>
           <div className="flex items-center gap-1 mt-1">
@@ -39,18 +39,18 @@ export default function ProductReview({ productId, rating, reviewCount }) {
           {productReviews.map((review) => (
             <div
               key={review.id}
-              className="p-5 bg-white rounded-card shadow-warm-sm"
+              className="p-5 bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   {/* 아바타 */}
-                  <div className="w-10 h-10 bg-cream-dark rounded-button flex items-center justify-center">
+                  <div className="w-10 h-10 bg-cream-dark dark:bg-dm-card rounded-button flex items-center justify-center">
                     <span className="font-body text-caption text-neutral-400">
                       {review.userName.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <p className="font-body text-body text-chocolate font-medium">
+                    <p className="font-body text-body text-chocolate dark:text-cream font-medium">
                       {review.userName}
                     </p>
                     <p className="font-body text-small text-neutral-400">
@@ -70,7 +70,7 @@ export default function ProductReview({ productId, rating, reviewCount }) {
                   ))}
                 </div>
               </div>
-              <p className="font-body text-body text-chocolate-light leading-relaxed">
+              <p className="font-body text-body text-chocolate-light dark:text-neutral-300 leading-relaxed">
                 {review.content}
               </p>
             </div>

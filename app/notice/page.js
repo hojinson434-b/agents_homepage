@@ -131,11 +131,11 @@ export default function NoticePage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-content mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 페이지 제목 */}
-        <h1 className="font-display text-heading-1 text-chocolate mb-2">
+        <h1 className="font-display text-heading-1 text-chocolate dark:text-cream mb-2">
           공지사항 & FAQ
         </h1>
         <p className="font-body text-body text-neutral-400 mb-8">
@@ -143,13 +143,13 @@ export default function NoticePage() {
         </p>
 
         {/* 탭 */}
-        <div className="flex gap-1 mb-8 border-b border-neutral-200">
+        <div className="flex gap-1 mb-8 border-b border-neutral-200 dark:border-dm-border">
           <button
             onClick={() => setActiveTab('notice')}
             className={`px-5 py-3 font-body text-caption font-medium transition-all duration-200 border-b-2 -mb-px ${
               activeTab === 'notice'
                 ? 'text-gold border-gold'
-                : 'text-neutral-400 border-transparent hover:text-chocolate-light'
+                : 'text-neutral-400 border-transparent hover:text-chocolate-light dark:text-neutral-300'
             }`}
           >
             공지사항
@@ -159,7 +159,7 @@ export default function NoticePage() {
             className={`px-5 py-3 font-body text-caption font-medium transition-all duration-200 border-b-2 -mb-px ${
               activeTab === 'faq'
                 ? 'text-gold border-gold'
-                : 'text-neutral-400 border-transparent hover:text-chocolate-light'
+                : 'text-neutral-400 border-transparent hover:text-chocolate-light dark:text-neutral-300'
             }`}
           >
             자주 묻는 질문
@@ -170,7 +170,7 @@ export default function NoticePage() {
         {activeTab === 'notice' && (
           <div className="space-y-3">
             {notices.map((notice) => (
-              <div key={notice.id} className="bg-white rounded-card shadow-warm-sm overflow-hidden">
+              <div key={notice.id} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm overflow-hidden">
                 <button
                   onClick={() => setExpandedNotice((prev) => prev === notice.id ? null : notice.id)}
                   className="w-full px-6 py-4 text-left flex items-center gap-4"
@@ -181,7 +181,7 @@ export default function NoticePage() {
                   </span>
 
                   {/* 제목 */}
-                  <span className="flex-1 font-body text-body text-chocolate font-medium truncate">
+                  <span className="flex-1 font-body text-body text-chocolate dark:text-cream font-medium truncate">
                     {notice.title}
                   </span>
 
@@ -205,7 +205,7 @@ export default function NoticePage() {
                     <p className="font-body text-caption text-neutral-400 mt-3 md:hidden mb-2">
                       {notice.date}
                     </p>
-                    <p className="font-body text-body text-chocolate-light leading-relaxed mt-2">
+                    <p className="font-body text-body text-chocolate-light dark:text-neutral-300 leading-relaxed mt-2">
                       {notice.content}
                     </p>
                   </div>
@@ -220,7 +220,7 @@ export default function NoticePage() {
           <div className="space-y-8">
             {faqs.map((section) => (
               <div key={section.category}>
-                <h3 className="font-display text-heading-3 text-chocolate mb-4">
+                <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-4">
                   {section.category}
                 </h3>
 
@@ -230,13 +230,13 @@ export default function NoticePage() {
                     const isOpen = openFaq === key
 
                     return (
-                      <div key={key} className="bg-white rounded-card shadow-warm-sm overflow-hidden">
+                      <div key={key} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm overflow-hidden">
                         {/* 질문 */}
                         <button
                           onClick={() => toggleFaq(key)}
                           className="w-full px-6 py-4 text-left flex items-center justify-between gap-4"
                         >
-                          <span className="font-body text-body text-chocolate font-medium">
+                          <span className="font-body text-body text-chocolate dark:text-cream font-medium">
                             Q. {faq.question}
                           </span>
                           <svg
@@ -250,7 +250,7 @@ export default function NoticePage() {
                         {/* 답변 */}
                         {isOpen && (
                           <div className="px-6 pb-4 border-t border-neutral-100">
-                            <p className="font-body text-body text-chocolate-light leading-relaxed mt-3">
+                            <p className="font-body text-body text-chocolate-light dark:text-neutral-300 leading-relaxed mt-3">
                               A. {faq.answer}
                             </p>
                           </div>

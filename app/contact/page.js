@@ -104,14 +104,14 @@ export default function ContactPage() {
   // 제출 완료 상태
   if (isSubmitted) {
     return (
-      <div className="bg-cream min-h-screen flex items-center justify-center px-4">
-        <div className="bg-white rounded-card shadow-warm-sm p-8 md:p-12 text-center max-w-md w-full">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen flex items-center justify-center px-4">
+        <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-8 md:p-12 text-center max-w-md w-full">
           <div className="w-16 h-16 mx-auto mb-6 bg-success/10 rounded-full flex items-center justify-center">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h2 className="font-display text-heading-2 text-chocolate mb-2">
+          <h2 className="font-display text-heading-2 text-chocolate dark:text-cream mb-2">
             문의가 접수되었습니다
           </h2>
           <p className="font-body text-body text-neutral-400 mb-8">
@@ -129,11 +129,11 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 페이지 제목 */}
-        <h1 className="font-display text-heading-1 text-chocolate mb-2">
+        <h1 className="font-display text-heading-1 text-chocolate dark:text-cream mb-2">
           고객센터
         </h1>
         <p className="font-body text-body text-neutral-400 mb-8">
@@ -144,8 +144,8 @@ export default function ContactPage() {
 
           {/* 왼쪽: 문의 폼 */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-card shadow-warm-sm p-6 md:p-8">
-              <h2 className="font-display text-heading-2 text-chocolate mb-6">
+            <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6 md:p-8">
+              <h2 className="font-display text-heading-2 text-chocolate dark:text-cream mb-6">
                 문의하기
               </h2>
 
@@ -153,7 +153,7 @@ export default function ContactPage() {
                 {/* 이름 + 이메일 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contactName" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="contactName" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       이름 <span className="text-error">*</span>
                     </label>
                     <input
@@ -164,11 +164,11 @@ export default function ContactPage() {
                       onChange={handleChange}
                       placeholder="이름"
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contactEmail" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="contactEmail" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       이메일 <span className="text-error">*</span>
                     </label>
                     <input
@@ -179,7 +179,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       placeholder="example@email.com"
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default function ContactPage() {
                 {/* 연락처 + 문의 유형 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contactPhone" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="contactPhone" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       연락처
                     </label>
                     <input
@@ -197,11 +197,11 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="010-0000-0000"
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contactType" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="contactType" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       문의 유형 <span className="text-error">*</span>
                     </label>
                     <select
@@ -210,7 +210,7 @@ export default function ContactPage() {
                       value={formData.type}
                       onChange={handleChange}
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 bg-white"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 bg-white"
                     >
                       {inquiryTypes.map((type) => (
                         <option key={type.value} value={type.value}>
@@ -223,7 +223,7 @@ export default function ContactPage() {
 
                 {/* 제목 */}
                 <div>
-                  <label htmlFor="contactTitle" className="block font-body text-caption text-chocolate font-medium mb-2">
+                  <label htmlFor="contactTitle" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                     제목 <span className="text-error">*</span>
                   </label>
                   <input
@@ -234,13 +234,13 @@ export default function ContactPage() {
                     onChange={handleChange}
                     placeholder="문의 제목을 입력해주세요"
                     required
-                    className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                    className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                   />
                 </div>
 
                 {/* 내용 */}
                 <div>
-                  <label htmlFor="contactContent" className="block font-body text-caption text-chocolate font-medium mb-2">
+                  <label htmlFor="contactContent" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                     문의 내용 <span className="text-error">*</span>
                   </label>
                   <textarea
@@ -251,7 +251,7 @@ export default function ContactPage() {
                     placeholder="문의 내용을 자세히 작성해주세요"
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 resize-none"
                   />
                 </div>
 
@@ -270,16 +270,16 @@ export default function ContactPage() {
           {/* 오른쪽: 연락처 정보 */}
           <div className="lg:col-span-1 space-y-4">
             {contactInfo.map((info) => (
-              <div key={info.title} className="bg-white rounded-card shadow-warm-sm p-6">
+              <div key={info.title} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-cream rounded-xl flex items-center justify-center text-caramel flex-shrink-0">
+                  <div className="w-12 h-12 bg-cream dark:bg-dm-card rounded-xl flex items-center justify-center text-caramel flex-shrink-0">
                     {info.icon}
                   </div>
                   <div>
-                    <h3 className="font-body text-body text-chocolate font-medium mb-1">
+                    <h3 className="font-body text-body text-chocolate dark:text-cream font-medium mb-1">
                       {info.title}
                     </h3>
-                    <p className="font-body text-caption text-chocolate-light">
+                    <p className="font-body text-caption text-chocolate-light dark:text-neutral-300">
                       {info.detail}
                     </p>
                     <p className="font-body text-small text-neutral-400 mt-1">
@@ -291,13 +291,13 @@ export default function ContactPage() {
             ))}
 
             {/* FAQ 링크 */}
-            <div className="bg-cream-dark rounded-card p-6 text-center">
-              <p className="font-body text-caption text-chocolate-light mb-3">
+            <div className="bg-cream-dark dark:bg-dm-card rounded-card p-6 text-center">
+              <p className="font-body text-caption text-chocolate-light dark:text-neutral-300 mb-3">
                 자주 묻는 질문을 먼저 확인해보세요
               </p>
               <Link
                 href="/notice"
-                className="inline-flex items-center gap-2 border border-caramel text-chocolate-light rounded-button px-6 py-2.5 font-body font-medium text-caption hover:bg-caramel hover:text-white transition-all duration-300 h-10"
+                className="inline-flex items-center gap-2 border border-caramel text-chocolate-light dark:text-neutral-300 rounded-button px-6 py-2.5 font-body font-medium text-caption hover:bg-caramel hover:text-white transition-all duration-300 h-10"
               >
                 FAQ 바로가기
               </Link>

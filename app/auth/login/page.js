@@ -74,12 +74,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen flex items-center justify-center px-4">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* 로고 */}
         <div className="text-center mb-8">
           <Link href="/">
-            <h1 className="font-display text-hero-mobile text-chocolate">
+            <h1 className="font-display text-hero-mobile text-chocolate dark:text-cream">
               Douceur
             </h1>
           </Link>
@@ -89,8 +89,8 @@ export default function LoginPage() {
         </div>
 
         {/* 로그인 폼 */}
-        <div className="bg-white rounded-card shadow-warm-sm p-8">
-          <h2 className="font-display text-heading-2 text-chocolate text-center mb-6">
+        <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-8">
+          <h2 className="font-display text-heading-2 text-chocolate dark:text-cream text-center mb-6">
             로그인
           </h2>
 
@@ -106,7 +106,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* 이메일 */}
             <div>
-              <label htmlFor="email" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="email" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 이메일
               </label>
               <input
@@ -116,10 +116,10 @@ export default function LoginPage() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="example@email.com"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.email
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.email && (
@@ -129,7 +129,7 @@ export default function LoginPage() {
 
             {/* 비밀번호 */}
             <div>
-              <label htmlFor="password" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="password" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 비밀번호
               </label>
               <input
@@ -139,10 +139,10 @@ export default function LoginPage() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="비밀번호를 입력해주세요"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.password
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.password && (
@@ -162,9 +162,9 @@ export default function LoginPage() {
 
           {/* 구분선 */}
           <div className="flex items-center gap-4 my-6">
-            <hr className="flex-1 border-neutral-200" />
-            <span className="font-body text-small text-neutral-300">또는</span>
-            <hr className="flex-1 border-neutral-200" />
+            <hr className="flex-1 border-neutral-200 dark:border-dm-border" />
+            <span className="font-body text-small text-neutral-300 dark:text-neutral-300">또는</span>
+            <hr className="flex-1 border-neutral-200 dark:border-dm-border" />
           </div>
 
           {/* 회원가입 링크 */}

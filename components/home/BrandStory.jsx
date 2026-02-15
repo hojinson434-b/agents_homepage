@@ -40,19 +40,19 @@ export default function BrandStory() {
 
           {/* 이미지/통계 영역 */}
           <div className="grid grid-cols-2 gap-6">
-            <div className="bg-chocolate-light rounded-card p-6 text-center">
+            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
               <p className="font-display text-hero-mobile text-gold">7+</p>
               <p className="font-body text-caption text-neutral-300 mt-2">년의 경험</p>
             </div>
-            <div className="bg-chocolate-light rounded-card p-6 text-center">
+            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
               <p className="font-display text-hero-mobile text-gold">30+</p>
               <p className="font-body text-caption text-neutral-300 mt-2">종의 메뉴</p>
             </div>
-            <div className="bg-chocolate-light rounded-card p-6 text-center">
+            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
               <p className="font-display text-hero-mobile text-gold">5k+</p>
               <p className="font-body text-caption text-neutral-300 mt-2">만족한 고객</p>
             </div>
-            <div className="bg-chocolate-light rounded-card p-6 text-center">
+            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
               <p className="font-display text-hero-mobile text-gold">4.8</p>
               <p className="font-body text-caption text-neutral-300 mt-2">평균 별점</p>
             </div>

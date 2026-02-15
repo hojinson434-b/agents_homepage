@@ -16,7 +16,7 @@ export default function ProductGallery({ images = [], productName = '' }) {
   return (
     <div className="space-y-4">
       {/* 메인 이미지 */}
-      <div className="bg-cream-dark rounded-card overflow-hidden aspect-square flex items-center justify-center">
+      <div className="bg-cream-dark dark:bg-dm-card rounded-card overflow-hidden aspect-square flex items-center justify-center">
         <span className="font-body text-body text-neutral-300">
           800 x 800
         </span>
@@ -29,7 +29,7 @@ export default function ProductGallery({ images = [], productName = '' }) {
             <button
               key={index}
               onClick={() => setSelectedIndex(index)}
-              className={`w-20 h-20 rounded-xl overflow-hidden bg-cream-dark flex items-center justify-center border-2 transition-all duration-200 ${
+              className={`w-20 h-20 rounded-xl overflow-hidden bg-cream-dark dark:bg-dm-card flex items-center justify-center border-2 transition-all duration-200 ${
                 index === selectedIndex
                   ? 'border-gold'
                   : 'border-transparent hover:border-caramel'

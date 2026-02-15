@@ -104,12 +104,12 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         {/* 로고 */}
         <div className="text-center mb-8">
           <Link href="/">
-            <h1 className="font-display text-hero-mobile text-chocolate">
+            <h1 className="font-display text-hero-mobile text-chocolate dark:text-cream">
               Douceur
             </h1>
           </Link>
@@ -119,8 +119,8 @@ export default function SignupPage() {
         </div>
 
         {/* 회원가입 폼 */}
-        <div className="bg-white rounded-card shadow-warm-sm p-8">
-          <h2 className="font-display text-heading-2 text-chocolate text-center mb-6">
+        <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-8">
+          <h2 className="font-display text-heading-2 text-chocolate dark:text-cream text-center mb-6">
             회원가입
           </h2>
 
@@ -136,7 +136,7 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* 이름 */}
             <div>
-              <label htmlFor="name" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="name" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 이름 <span className="text-error">*</span>
               </label>
               <input
@@ -146,10 +146,10 @@ export default function SignupPage() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="이름을 입력해주세요"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.name
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.name && (
@@ -159,7 +159,7 @@ export default function SignupPage() {
 
             {/* 이메일 */}
             <div>
-              <label htmlFor="email" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="email" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 이메일 <span className="text-error">*</span>
               </label>
               <input
@@ -169,10 +169,10 @@ export default function SignupPage() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="example@email.com"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.email
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.email && (
@@ -182,8 +182,8 @@ export default function SignupPage() {
 
             {/* 연락처 (선택) */}
             <div>
-              <label htmlFor="phone" className="block font-body text-caption text-chocolate font-medium mb-2">
-                연락처 <span className="font-body text-small text-neutral-300">(선택)</span>
+              <label htmlFor="phone" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
+                연락처 <span className="font-body text-small text-neutral-300 dark:text-neutral-300">(선택)</span>
               </label>
               <input
                 type="tel"
@@ -192,10 +192,10 @@ export default function SignupPage() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="010-0000-0000"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.phone
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.phone && (
@@ -205,7 +205,7 @@ export default function SignupPage() {
 
             {/* 비밀번호 */}
             <div>
-              <label htmlFor="password" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="password" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 비밀번호 <span className="text-error">*</span>
               </label>
               <input
@@ -215,10 +215,10 @@ export default function SignupPage() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="6자 이상 입력해주세요"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.password
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.password && (
@@ -228,7 +228,7 @@ export default function SignupPage() {
 
             {/* 비밀번호 확인 */}
             <div>
-              <label htmlFor="passwordConfirm" className="block font-body text-caption text-chocolate font-medium mb-2">
+              <label htmlFor="passwordConfirm" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                 비밀번호 확인 <span className="text-error">*</span>
               </label>
               <input
@@ -238,10 +238,10 @@ export default function SignupPage() {
                 value={formData.passwordConfirm}
                 onChange={handleChange}
                 placeholder="비밀번호를 다시 입력해주세요"
-                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 ${
+                className={`w-full h-12 px-4 border rounded-xl font-body text-body text-chocolate dark:border-dm-border dark:bg-dm-card dark:text-cream outline-none transition-all duration-200 ${
                   errors.passwordConfirm
                     ? 'border-error focus:ring-2 focus:ring-error/20'
-                    : 'border-neutral-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20'
+                    : 'border-neutral-200 dark:border-dm-border focus:border-caramel focus:ring-2 focus:ring-caramel/20'
                 }`}
               />
               {errors.passwordConfirm && (
@@ -261,9 +261,9 @@ export default function SignupPage() {
 
           {/* 구분선 */}
           <div className="flex items-center gap-4 my-6">
-            <hr className="flex-1 border-neutral-200" />
-            <span className="font-body text-small text-neutral-300">또는</span>
-            <hr className="flex-1 border-neutral-200" />
+            <hr className="flex-1 border-neutral-200 dark:border-dm-border" />
+            <span className="font-body text-small text-neutral-300 dark:text-neutral-300">또는</span>
+            <hr className="flex-1 border-neutral-200 dark:border-dm-border" />
           </div>
 
           {/* 로그인 링크 */}

@@ -45,7 +45,7 @@ const milestones = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
 
       {/* 히어로 섹션 */}
       <section className="bg-chocolate text-white py-20 md:py-28">
@@ -70,7 +70,7 @@ export default function AboutPage() {
         <div className="max-w-content mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* 이미지 */}
-            <div className="bg-cream-dark rounded-card h-80 lg:h-96 flex items-center justify-center">
+            <div className="bg-cream-dark dark:bg-dm-card rounded-card h-80 lg:h-96 flex items-center justify-center">
               <span className="font-body text-body text-neutral-300">800 x 600</span>
             </div>
 
@@ -79,10 +79,10 @@ export default function AboutPage() {
               <p className="font-accent text-caption text-caramel tracking-widest uppercase mb-3">
                 Our Story
               </p>
-              <h2 className="font-display text-heading-1 text-chocolate mb-6">
+              <h2 className="font-display text-heading-1 text-chocolate dark:text-cream mb-6">
                 파리의 감성을 서울에서
               </h2>
-              <div className="space-y-4 font-body text-body text-chocolate-light leading-relaxed">
+              <div className="space-y-4 font-body text-body text-chocolate-light dark:text-neutral-300 leading-relaxed">
                 <p>
                   2017년, 파리에서 수년간 파티스리를 배운 셰프가 서울 성수동의 작은 공방에서 시작한 Douceur.
                   &ldquo;진짜 좋은 재료로, 진심을 담아 만들자&rdquo;는 단순하지만 확고한 철학으로 출발했습니다.
@@ -102,13 +102,13 @@ export default function AboutPage() {
       </section>
 
       {/* 브랜드 가치 */}
-      <section className="bg-white py-16 md:py-24">
+      <section className="bg-white dark:bg-dm-surface py-16 md:py-24">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="font-accent text-caption text-caramel tracking-widest uppercase mb-3">
               Our Values
             </p>
-            <h2 className="font-display text-heading-1 text-chocolate">
+            <h2 className="font-display text-heading-1 text-chocolate dark:text-cream">
               네 가지 약속
             </h2>
           </div>
@@ -117,13 +117,13 @@ export default function AboutPage() {
             {values.map((value) => (
               <div
                 key={value.title}
-                className="bg-cream rounded-card p-6 text-center hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300"
+                className="bg-cream dark:bg-dm-card rounded-card p-6 text-center hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300"
               >
                 <span className="text-hero-mobile block mb-4">{value.icon}</span>
-                <h3 className="font-display text-heading-3 text-chocolate mb-3">
+                <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-3">
                   {value.title}
                 </h3>
-                <p className="font-body text-caption text-chocolate-light leading-relaxed">
+                <p className="font-body text-caption text-chocolate-light dark:text-neutral-300 leading-relaxed">
                   {value.description}
                 </p>
               </div>
@@ -139,7 +139,7 @@ export default function AboutPage() {
             <p className="font-accent text-caption text-caramel tracking-widest uppercase mb-3">
               Milestones
             </p>
-            <h2 className="font-display text-heading-1 text-chocolate">
+            <h2 className="font-display text-heading-1 text-chocolate dark:text-cream">
               Douceur의 발자취
             </h2>
           </div>
@@ -153,7 +153,7 @@ export default function AboutPage() {
                 <span className="font-accent text-heading-3 text-gold font-medium w-16 flex-shrink-0">
                   {item.year}
                 </span>
-                <p className="font-body text-body text-chocolate-light">
+                <p className="font-body text-body text-chocolate-light dark:text-neutral-300">
                   {item.event}
                 </p>
               </div>

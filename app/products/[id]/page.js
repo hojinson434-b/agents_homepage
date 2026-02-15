@@ -29,7 +29,7 @@ export default function ProductDetailPage() {
   // 상품을 찾을 수 없는 경우
   if (!product) {
     return (
-      <div className="bg-cream min-h-screen flex items-center justify-center">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="font-display text-heading-1 text-chocolate mb-4">
             상품을 찾을 수 없습니다
@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
   const wishlisted = isInWishlist(product.id)
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 브레드크럼 */}
@@ -91,7 +91,7 @@ export default function ProductDetailPage() {
           <span className="mx-2">/</span>
           <Link href="/products" className="hover:text-gold transition-colors duration-200">전체 상품</Link>
           <span className="mx-2">/</span>
-          <span className="text-chocolate-light">{product.name}</span>
+          <span className="text-chocolate-light dark:text-neutral-300">{product.name}</span>
         </nav>
 
         {/* 상품 정보 영역 */}
@@ -158,12 +158,12 @@ export default function ProductDetailPage() {
             </div>
 
             {/* 설명 */}
-            <p className="font-body text-body text-chocolate-light leading-relaxed mb-8">
+            <p className="font-body text-body text-chocolate-light dark:text-neutral-300 leading-relaxed mb-8">
               {product.detailDescription}
             </p>
 
             {/* 구분선 */}
-            <hr className="border-neutral-200 mb-6" />
+            <hr className="border-neutral-200 dark:border-dm-border mb-6" />
 
             {/* 옵션 선택 */}
             {product.options.length > 1 && (
@@ -179,7 +179,7 @@ export default function ProductDetailPage() {
                       className={`px-5 py-2 rounded-button font-body text-caption transition-all duration-200 h-10 ${
                         selectedOption === index
                           ? 'bg-gold text-white'
-                          : 'border border-neutral-200 text-chocolate-light hover:border-caramel'
+                          : 'border border-neutral-200 dark:border-dm-border text-chocolate-light dark:text-neutral-300 hover:border-caramel'
                       }`}
                     >
                       {option.name}
@@ -199,17 +199,17 @@ export default function ProductDetailPage() {
                 <button
                   onClick={() => handleQuantityChange(-1)}
                   disabled={quantity <= 1}
-                  className="w-10 h-10 border border-neutral-200 rounded-xl flex items-center justify-center font-body text-body text-chocolate-light hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="w-10 h-10 border border-neutral-200 dark:border-dm-border rounded-xl flex items-center justify-center font-body text-body text-chocolate-light dark:text-neutral-300 hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   −
                 </button>
-                <span className="w-14 h-10 flex items-center justify-center font-body text-body text-chocolate font-medium">
+                <span className="w-14 h-10 flex items-center justify-center font-body text-body text-chocolate dark:text-cream font-medium">
                   {quantity}
                 </span>
                 <button
                   onClick={() => handleQuantityChange(1)}
                   disabled={quantity >= product.stock}
-                  className="w-10 h-10 border border-neutral-200 rounded-xl flex items-center justify-center font-body text-body text-chocolate-light hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="w-10 h-10 border border-neutral-200 dark:border-dm-border rounded-xl flex items-center justify-center font-body text-body text-chocolate-light dark:text-neutral-300 hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   +
                 </button>
@@ -220,7 +220,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* 총 금액 */}
-            <div className="flex items-center justify-between mb-6 p-4 bg-cream-dark rounded-xl">
+            <div className="flex items-center justify-between mb-6 p-4 bg-cream-dark dark:bg-dm-card rounded-xl">
               <span className="font-body text-body text-chocolate font-medium">총 금액</span>
               <span className="font-accent text-heading-2 text-gold font-medium">
                 {formatPrice(totalPrice)}원
@@ -235,7 +235,7 @@ export default function ProductDetailPage() {
                 className={`w-14 h-14 flex items-center justify-center border rounded-button transition-all duration-300 flex-shrink-0 ${
                   wishlisted
                     ? 'border-rose bg-rose/10 text-rose'
-                    : 'border-neutral-200 text-neutral-300 hover:border-rose hover:text-rose'
+                    : 'border-neutral-200 dark:border-dm-border text-neutral-300 hover:border-rose hover:text-rose'
                 }`}
                 aria-label={wishlisted ? '찜 해제' : '찜하기'}
               >
@@ -255,7 +255,7 @@ export default function ProductDetailPage() {
               {/* 바로 구매 */}
               <button
                 onClick={handleBuyNow}
-                className="flex-1 border border-caramel text-chocolate-light rounded-button py-3 font-body font-medium text-body hover:bg-caramel hover:text-white transition-all duration-300 h-14"
+                className="flex-1 border border-caramel text-chocolate-light dark:text-neutral-300 rounded-button py-3 font-body font-medium text-body hover:bg-caramel hover:text-white transition-all duration-300 h-14"
               >
                 바로 구매
               </button>

@@ -21,11 +21,11 @@ export default function CartItem({ item }) {
   const itemTotal = unitPrice * item.quantity
 
   return (
-    <div className="bg-white rounded-card p-4 md:p-6 shadow-warm-sm">
+    <div className="bg-white dark:bg-dm-surface rounded-card p-4 md:p-6 shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border">
       <div className="flex gap-4">
         {/* 상품 이미지 */}
         <Link href={`/products/${product.id}`} className="flex-shrink-0">
-          <div className="w-20 h-20 md:w-24 md:h-24 bg-cream-dark rounded-xl flex items-center justify-center">
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-cream-dark dark:bg-dm-card rounded-xl flex items-center justify-center">
             <span className="font-body text-small text-neutral-300">IMG</span>
           </div>
         </Link>
@@ -35,7 +35,7 @@ export default function CartItem({ item }) {
           <div className="flex items-start justify-between gap-2">
             <div>
               <Link href={`/products/${product.id}`}>
-                <h3 className="font-display text-heading-3 text-chocolate truncate hover:text-gold transition-colors duration-200">
+                <h3 className="font-display text-heading-3 text-chocolate dark:text-cream truncate hover:text-gold transition-colors duration-200">
                   {product.name}
                 </h3>
               </Link>
@@ -67,17 +67,17 @@ export default function CartItem({ item }) {
               <button
                 onClick={() => updateQuantity(item.productId, item.optionIndex, item.quantity - 1)}
                 disabled={item.quantity <= 1}
-                className="w-8 h-8 border border-neutral-200 rounded-lg flex items-center justify-center font-body text-caption text-chocolate-light hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-8 h-8 border border-neutral-200 dark:border-dm-border rounded-lg flex items-center justify-center font-body text-caption text-chocolate-light dark:text-neutral-300 hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 −
               </button>
-              <span className="w-10 h-8 flex items-center justify-center font-body text-caption text-chocolate font-medium">
+              <span className="w-10 h-8 flex items-center justify-center font-body text-caption text-chocolate dark:text-cream font-medium">
                 {item.quantity}
               </span>
               <button
                 onClick={() => updateQuantity(item.productId, item.optionIndex, item.quantity + 1)}
                 disabled={item.quantity >= product.stock}
-                className="w-8 h-8 border border-neutral-200 rounded-lg flex items-center justify-center font-body text-caption text-chocolate-light hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-8 h-8 border border-neutral-200 dark:border-dm-border rounded-lg flex items-center justify-center font-body text-caption text-chocolate-light dark:text-neutral-300 hover:border-caramel transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 +
               </button>

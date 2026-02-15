@@ -21,10 +21,10 @@ export default function ProductsPage() {
 // 로딩 상태
 function ProductsLoading() {
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
         <div className="mb-8">
-          <div className="h-10 w-48 bg-neutral-200 rounded-xl animate-pulse" />
+          <div className="h-10 w-48 bg-neutral-200 dark:bg-dm-card rounded-xl animate-pulse" />
           <div className="h-5 w-32 bg-neutral-100 rounded-xl animate-pulse mt-3" />
         </div>
       </div>
@@ -83,15 +83,15 @@ function ProductsContent() {
   }, [selectedCategory, sortBy, searchQuery])
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 페이지 제목 */}
         <div className="mb-8">
-          <h1 className="font-display text-heading-1 lg:text-hero-mobile text-chocolate">
+          <h1 className="font-display text-heading-1 lg:text-hero-mobile text-chocolate dark:text-cream">
             전체 상품
           </h1>
-          <p className="font-body text-body text-chocolate-light mt-2">
+          <p className="font-body text-body text-chocolate-light dark:text-neutral-300 mt-2">
             총 {filteredProducts.length}개의 상품
           </p>
         </div>

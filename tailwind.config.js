@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './app/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
@@ -23,6 +24,14 @@ module.exports = {
           300: '#C4B8AC',
           400: '#9A8D82',
           500: '#6E6259',
+        },
+        /* ── 다크모드 전용 컬러 ── */
+        dm: {
+          bg:      '#1A1210',
+          surface: '#2C1F17',
+          card:    '#3A2A1E',
+          border:  '#4A3828',
+          muted:   '#8A7B6E',
         },
       },
 

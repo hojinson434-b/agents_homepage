@@ -28,13 +28,13 @@ export default function HeroBanner() {
           {/* 메인 타이틀 */}
           <h1
             key={slide.id}
-            className="font-display text-hero-mobile lg:text-hero-desktop text-chocolate whitespace-pre-line animate-fade-in-up"
+            className="font-display text-hero-mobile lg:text-hero-desktop text-chocolate dark:text-cream whitespace-pre-line animate-fade-in-up"
           >
             {slide.title}
           </h1>
 
           {/* 서브 타이틀 */}
-          <p className="font-body text-body-lg text-chocolate-light mt-4 md:mt-6 max-w-content animate-fade-in">
+          <p className="font-body text-body-lg text-chocolate-light dark:text-neutral-300 mt-4 md:mt-6 max-w-content animate-fade-in">
             {slide.subtitle}
           </p>
 

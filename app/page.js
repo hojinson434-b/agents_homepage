@@ -12,7 +12,7 @@ const ReviewPreview = dynamic(() => import('@/components/home/ReviewPreview'))
 
 export default function Home() {
   return (
-    <div className="bg-cream">
+    <div className="bg-cream dark:bg-dm-bg">
       <HeroBanner />
       <PopularProducts />
       <NewArrivals />
