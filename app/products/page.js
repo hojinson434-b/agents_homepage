@@ -3,8 +3,8 @@
 
 'use client'
 
-import { Suspense, useState, useEffect, useMemo } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { Suspense, useState, useMemo } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { products } from '@/lib/products'
 import ProductFilter from '@/components/product/ProductFilter'
 import ProductGrid from '@/components/product/ProductGrid'
@@ -35,16 +35,20 @@ function ProductsLoading() {
 // 실제 상품 목록 컨텐츠
 function ProductsContent() {
   const searchParams = useSearchParams()
-  const categoryFromUrl = searchParams.get('category') || 'all'
+  const router = useRouter()
+  const selectedCategory = searchParams.get('category') || 'all'
 
-  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl)
   const [sortBy, setSortBy] = useState('popular')
   const [searchQuery, setSearchQuery] = useState('')
 
-  // URL 카테고리 파라미터 변경 시 상태 동기화
-  useEffect(() => {
-    setSelectedCategory(categoryFromUrl)
-  }, [categoryFromUrl])
+  // 카테고리 변경 시 URL 업데이트 (URL을 단일 소스로 사용)
+  function handleCategoryChange(category) {
+    if (category === 'all') {
+      router.push('/products')
+    } else {
+      router.push(`/products?category=${category}`)
+    }
+  }
 
   // 필터링 + 정렬 로직
   const filteredProducts = useMemo(() => {
@@ -105,7 +109,7 @@ function ProductsContent() {
         <div className="mb-8">
           <ProductFilter
             selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
+            onCategoryChange={handleCategoryChange}
             sortBy={sortBy}
             onSortChange={setSortBy}
             searchQuery={searchQuery}
