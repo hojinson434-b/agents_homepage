@@ -102,7 +102,7 @@ export default function CheckoutPage() {
   // 로딩 중
   if (!isLoaded) {
     return (
-      <div className="bg-cream min-h-screen">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
           <div className="h-10 w-40 bg-neutral-200 rounded-xl animate-pulse" />
         </div>
@@ -113,9 +113,9 @@ export default function CheckoutPage() {
   // 장바구니가 비어있으면 리다이렉트
   if (cartItems.length === 0) {
     return (
-      <div className="bg-cream min-h-screen">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
-          <div className="bg-white rounded-card shadow-warm-sm p-12 text-center">
+          <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-12 text-center">
             <h2 className="font-display text-heading-2 text-chocolate mb-2">
               주문할 상품이 없습니다
             </h2>
@@ -135,7 +135,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 페이지 제목 */}
@@ -150,7 +150,7 @@ export default function CheckoutPage() {
             <div className="lg:col-span-2 space-y-6">
 
               {/* 배송 정보 */}
-              <section className="bg-white rounded-card p-6 shadow-warm-sm">
+              <section className="bg-white dark:bg-dm-surface rounded-card p-6 shadow-warm-sm">
                 <h2 className="font-display text-heading-2 text-chocolate mb-6">
                   배송 정보
                 </h2>
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
                 <div className="space-y-4">
                   {/* 이름 */}
                   <div>
-                    <label htmlFor="name" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="name" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       받는 분 <span className="text-error">*</span>
                     </label>
                     <input
@@ -169,13 +169,13 @@ export default function CheckoutPage() {
                       onChange={handleChange}
                       placeholder="이름을 입력해주세요"
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
 
                   {/* 연락처 */}
                   <div>
-                    <label htmlFor="phone" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="phone" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       연락처 <span className="text-error">*</span>
                     </label>
                     <input
@@ -186,13 +186,13 @@ export default function CheckoutPage() {
                       onChange={handleChange}
                       placeholder="010-0000-0000"
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
 
                   {/* 우편번호 */}
                   <div>
-                    <label htmlFor="zipcode" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="zipcode" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       우편번호
                     </label>
                     <div className="flex gap-2">
@@ -203,11 +203,11 @@ export default function CheckoutPage() {
                         value={formData.zipcode}
                         onChange={handleChange}
                         placeholder="우편번호"
-                        className="flex-1 h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                        className="flex-1 h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                       />
                       <button
                         type="button"
-                        className="border border-caramel text-chocolate-light rounded-xl px-5 font-body text-caption hover:bg-caramel hover:text-white transition-all duration-300 h-12 flex-shrink-0"
+                        className="border border-caramel text-chocolate-light dark:text-neutral-300 rounded-xl px-5 font-body text-caption hover:bg-caramel hover:text-white transition-all duration-300 h-12 flex-shrink-0"
                       >
                         주소 검색
                       </button>
@@ -216,7 +216,7 @@ export default function CheckoutPage() {
 
                   {/* 주소 */}
                   <div>
-                    <label htmlFor="address" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="address" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       주소 <span className="text-error">*</span>
                     </label>
                     <input
@@ -227,13 +227,13 @@ export default function CheckoutPage() {
                       onChange={handleChange}
                       placeholder="주소를 입력해주세요"
                       required
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
 
                   {/* 상세 주소 */}
                   <div>
-                    <label htmlFor="addressDetail" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="addressDetail" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       상세 주소
                     </label>
                     <input
@@ -243,13 +243,13 @@ export default function CheckoutPage() {
                       value={formData.addressDetail}
                       onChange={handleChange}
                       placeholder="상세 주소 (동/호수 등)"
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
                     />
                   </div>
 
                   {/* 배송 메모 */}
                   <div>
-                    <label htmlFor="message" className="block font-body text-caption text-chocolate font-medium mb-2">
+                    <label htmlFor="message" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
                       배송 메모
                     </label>
                     <select
@@ -257,7 +257,7 @@ export default function CheckoutPage() {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 bg-white"
+                      className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream dark:bg-dm-card focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200 bg-white"
                     >
                       <option value="">배송 메모를 선택해주세요</option>
                       <option value="문 앞에 놓아주세요">문 앞에 놓아주세요</option>
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
               </section>
 
               {/* 결제 수단 */}
-              <section className="bg-white rounded-card p-6 shadow-warm-sm">
+              <section className="bg-white dark:bg-dm-surface rounded-card p-6 shadow-warm-sm">
                 <h2 className="font-display text-heading-2 text-chocolate mb-6">
                   결제 수단
                 </h2>
@@ -284,7 +284,7 @@ export default function CheckoutPage() {
                       className={`p-4 rounded-xl border-2 text-center transition-all duration-200 ${
                         paymentMethod === method.id
                           ? 'border-gold bg-gold/5'
-                          : 'border-neutral-200 hover:border-caramel'
+                          : 'border-neutral-200 dark:border-dm-border hover:border-caramel'
                       }`}
                     >
                       <span className="block text-heading-3 mb-1">{method.icon}</span>
@@ -300,7 +300,7 @@ export default function CheckoutPage() {
             {/* 오른쪽: 주문 요약 */}
             <div className="lg:col-span-1">
               <div className="lg:sticky lg:top-24">
-                <div className="bg-white rounded-card p-6 shadow-warm-sm">
+                <div className="bg-white dark:bg-dm-surface rounded-card p-6 shadow-warm-sm">
                   <h2 className="font-display text-heading-2 text-chocolate mb-6">
                     주문 요약
                   </h2>
@@ -333,7 +333,7 @@ export default function CheckoutPage() {
                     })}
                   </div>
 
-                  <hr className="border-neutral-200 mb-4" />
+                  <hr className="border-neutral-200 dark:border-dm-border mb-4" />
 
                   {/* 금액 상세 */}
                   <div className="space-y-2 mb-4">
@@ -357,7 +357,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <hr className="border-neutral-200 mb-4" />
+                  <hr className="border-neutral-200 dark:border-dm-border mb-4" />
 
                   {/* 최종 금액 */}
                   <div className="flex justify-between items-center mb-6">

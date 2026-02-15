@@ -19,26 +19,26 @@ export default function CartSummary() {
   const remainingForFree = FREE_SHIPPING_THRESHOLD - cartTotal
 
   return (
-    <div className="bg-white rounded-card p-6 shadow-warm-sm">
-      <h2 className="font-display text-heading-2 text-chocolate mb-6">
+    <div className="bg-white dark:bg-dm-surface rounded-card p-6 shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border">
+      <h2 className="font-display text-heading-2 text-chocolate dark:text-cream mb-6">
         주문 요약
       </h2>
 
       <div className="space-y-3 mb-6">
         {/* 상품 금액 */}
         <div className="flex justify-between">
-          <span className="font-body text-body text-chocolate-light">
+          <span className="font-body text-body text-chocolate-light dark:text-neutral-300">
             상품 금액 ({cartCount}개)
           </span>
-          <span className="font-body text-body text-chocolate font-medium">
+          <span className="font-body text-body text-chocolate dark:text-cream font-medium">
             {formatPrice(cartTotal)}원
           </span>
         </div>
 
         {/* 배송비 */}
         <div className="flex justify-between">
-          <span className="font-body text-body text-chocolate-light">배송비</span>
-          <span className="font-body text-body text-chocolate font-medium">
+          <span className="font-body text-body text-chocolate-light dark:text-neutral-300">배송비</span>
+          <span className="font-body text-body text-chocolate dark:text-cream font-medium">
             {shippingFee === 0 ? (
               <span className="text-success">무료</span>
             ) : (
@@ -56,11 +56,11 @@ export default function CartSummary() {
       </div>
 
       {/* 구분선 */}
-      <hr className="border-neutral-200 mb-4" />
+      <hr className="border-neutral-200 dark:border-dm-border mb-4" />
 
       {/* 최종 결제 금액 */}
       <div className="flex justify-between items-center mb-6">
-        <span className="font-body text-body-lg text-chocolate font-medium">
+        <span className="font-body text-body-lg text-chocolate dark:text-cream font-medium">
           총 결제 금액
         </span>
         <span className="font-accent text-heading-2 text-gold font-medium">

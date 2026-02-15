@@ -39,7 +39,7 @@ export default function ProductFilter({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="상품명으로 검색하세요"
-          className="w-full h-12 pl-12 pr-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate outline-none transition-all duration-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20"
+          className="w-full h-12 pl-12 pr-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:text-cream bg-white dark:bg-dm-surface outline-none transition-all duration-200 focus:border-caramel focus:ring-2 focus:ring-caramel/20"
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function ProductFilter({
             className={`flex-shrink-0 px-5 py-2 rounded-button font-body text-caption font-medium transition-all duration-200 h-10 ${
               selectedCategory === 'all'
                 ? 'bg-gold text-white'
-                : 'bg-neutral-100 text-chocolate-light hover:bg-neutral-200'
+                : 'bg-neutral-100 dark:bg-dm-card text-chocolate-light dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-dm-border'
             }`}
           >
             전체
@@ -65,7 +65,7 @@ export default function ProductFilter({
               className={`flex-shrink-0 px-5 py-2 rounded-button font-body text-caption font-medium transition-all duration-200 h-10 ${
                 selectedCategory === cat.id
                   ? 'bg-gold text-white'
-                  : 'bg-neutral-100 text-chocolate-light hover:bg-neutral-200'
+                  : 'bg-neutral-100 dark:bg-dm-card text-chocolate-light dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-dm-border'
               }`}
             >
               {cat.icon} {cat.name}
@@ -77,7 +77,7 @@ export default function ProductFilter({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="h-10 px-4 border border-neutral-200 rounded-xl font-body text-caption text-chocolate-light outline-none transition-all duration-200 focus:border-caramel cursor-pointer bg-white"
+          className="h-10 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-caption text-chocolate-light dark:text-neutral-300 outline-none transition-all duration-200 focus:border-caramel cursor-pointer bg-white dark:bg-dm-surface"
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>

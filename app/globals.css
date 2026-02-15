@@ -8,11 +8,13 @@
 /* ── 기본 스타일 ── */
 @layer base {
   body {
-    @apply bg-cream font-body text-chocolate;
+    @apply bg-cream font-body text-chocolate
+           dark:bg-dm-bg dark:text-cream;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display text-chocolate font-bold;
+    @apply font-display text-chocolate font-bold
+           dark:text-cream;
   }
 
   a {
@@ -20,6 +22,19 @@
   }
 
   ::selection {
-    @apply bg-gold/20 text-chocolate;
+    @apply bg-gold/20 text-chocolate
+           dark:bg-gold/30 dark:text-cream;
+  }
+
+  /* 키보드 포커스 시 눈에 보이는 아웃라인 */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+}
+
+/* ── 다크모드 스크롤바 ── */
+@layer base {
+  .dark {
+    color-scheme: dark;
   }
 }

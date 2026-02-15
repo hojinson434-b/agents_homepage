@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-chocolate text-white">
+    <footer className="bg-chocolate dark:bg-dm-bg text-white dark:border-t dark:border-dm-border">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8">
 
         {/* 상단 영역 — 브랜드 + 링크 */}
@@ -82,16 +82,16 @@ export default function Footer() {
         </div>
 
         {/* 하단 영역 — 저작권 */}
-        <div className="border-t border-neutral-500 py-6">
+        <div className="border-t border-neutral-500 dark:border-dm-border py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="font-body text-small text-neutral-400">
-              &copy; 2024 Douceur. All rights reserved.
+              &copy; 2025 Douceur. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="#" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
+              <Link href="/notice" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
                 이용약관
               </Link>
-              <Link href="#" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
+              <Link href="/notice" className="font-body text-small text-neutral-400 hover:text-gold transition-colors duration-200">
                 개인정보처리방침
               </Link>
             </div>

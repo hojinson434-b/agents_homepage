@@ -20,7 +20,7 @@ export default function OrderCompletePage() {
 // 로딩 상태
 function OrderCompleteLoading() {
   return (
-    <div className="bg-cream min-h-screen flex items-center justify-center">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen flex items-center justify-center">
       <div className="h-10 w-48 bg-neutral-200 rounded-xl animate-pulse" />
     </div>
   )
@@ -41,7 +41,7 @@ function OrderCompleteContent() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-content mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
 
         {/* 성공 아이콘 */}
@@ -62,7 +62,7 @@ function OrderCompleteContent() {
 
         {/* 주문 정보 카드 */}
         {order && (
-          <div className="bg-white rounded-card shadow-warm-sm p-6 md:p-8 mb-8">
+          <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border p-6 md:p-8 mb-8">
             <h2 className="font-display text-heading-2 text-chocolate mb-6">
               주문 정보
             </h2>
@@ -92,7 +92,7 @@ function OrderCompleteContent() {
               </div>
             </div>
 
-            <hr className="border-neutral-200 mb-6" />
+            <hr className="border-neutral-200 dark:border-dm-border mb-6" />
 
             {/* 주문 상품 */}
             <h3 className="font-body text-body text-chocolate font-medium mb-4">
@@ -116,7 +116,7 @@ function OrderCompleteContent() {
               ))}
             </div>
 
-            <hr className="border-neutral-200 mb-6" />
+            <hr className="border-neutral-200 dark:border-dm-border mb-6" />
 
             {/* 배송 정보 */}
             <h3 className="font-body text-body text-chocolate font-medium mb-4">
@@ -145,7 +145,7 @@ function OrderCompleteContent() {
               )}
             </div>
 
-            <hr className="border-neutral-200 mb-4" />
+            <hr className="border-neutral-200 dark:border-dm-border mb-4" />
 
             {/* 결제 금액 */}
             <div className="space-y-2 mb-4">
@@ -165,7 +165,7 @@ function OrderCompleteContent() {
               </div>
             </div>
 
-            <div className="flex justify-between items-center p-4 bg-cream-dark rounded-xl">
+            <div className="flex justify-between items-center p-4 bg-cream-dark dark:bg-dm-card rounded-xl">
               <span className="font-body text-body text-chocolate font-medium">총 결제 금액</span>
               <span className="font-accent text-heading-2 text-gold font-medium">
                 {formatPrice(order.total)}원
@@ -176,7 +176,7 @@ function OrderCompleteContent() {
 
         {/* 주문 정보가 없는 경우 */}
         {!order && orderId && (
-          <div className="bg-white rounded-card shadow-warm-sm p-8 text-center mb-8">
+          <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border p-8 text-center mb-8">
             <p className="font-body text-body text-neutral-400">
               주문 번호: <span className="font-accent text-chocolate">{orderId}</span>
             </p>
@@ -193,7 +193,7 @@ function OrderCompleteContent() {
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 border border-caramel text-chocolate-light rounded-button px-8 py-3 font-body font-medium hover:bg-caramel hover:text-white transition-all duration-300 h-12"
+            className="inline-flex items-center justify-center gap-2 border border-caramel text-chocolate-light dark:text-neutral-300 rounded-button px-8 py-3 font-body font-medium hover:bg-caramel hover:text-white transition-all duration-300 h-12"
           >
             홈으로 돌아가기
           </Link>

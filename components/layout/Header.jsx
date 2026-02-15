@@ -1,4 +1,4 @@
-// 헤더 컴포넌트 — 반응형 네비게이션, 로고, 장바구니/검색 아이콘, 장바구니 수량 뱃지
+// 헤더 컴포넌트 — 반응형 네비게이션, 로고, 장바구니/검색 아이콘, 장바구니 수량 뱃지, 다크모드 토글
 // 모바일: 햄버거 메뉴, 데스크톱: 가로 네비게이션
 
 'use client'
@@ -8,6 +8,7 @@ import Link from 'next/link'
 import MobileMenu from '@/components/layout/MobileMenu'
 import { useCart } from '@/contexts/CartContext'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTheme } from '@/contexts/ThemeContext'
 
 // 네비게이션 링크 목록
 const navLinks = [
@@ -22,15 +23,16 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { cartCount } = useCart()
   const { isLoggedIn, user } = useAuth()
+  const { isDark, toggleTheme, mounted } = useTheme()
 
   return (
-    <header className="bg-white shadow-warm-sm sticky top-0 z-40">
+    <header className="bg-white dark:bg-dm-surface shadow-warm-sm dark:shadow-none dark:border-b dark:border-dm-border sticky top-0 z-40">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* 로고 */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-display text-heading-2 md:text-heading-1 text-chocolate">
+            <span className="font-display text-heading-2 md:text-heading-1 text-chocolate dark:text-cream">
               Douceur
             </span>
           </Link>
@@ -41,19 +43,48 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-body text-body text-chocolate-light hover:text-gold transition-colors duration-200"
+                className="font-body text-body text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* 아이콘 영역 (검색, 장바구니, 마이페이지) */}
-          <div className="flex items-center gap-2">
+          {/* 아이콘 영역 (다크모드, 검색, 장바구니, 마이페이지) */}
+          <div className="flex items-center gap-1 md:gap-2">
+            {/* 다크모드 토글 */}
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="w-12 h-12 flex items-center justify-center text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200"
+                aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+              >
+                {isDark ? (
+                  // 해 아이콘 (라이트 모드로)
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </svg>
+                ) : (
+                  // 달 아이콘 (다크 모드로)
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                  </svg>
+                )}
+              </button>
+            )}
+
             {/* 검색 */}
             <Link
               href="/products"
-              className="w-12 h-12 flex items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200"
+              className="w-12 h-12 flex items-center justify-center text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200"
               aria-label="상품 검색"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,7 +96,7 @@ export default function Header() {
             {/* 장바구니 (수량 뱃지 포함) */}
             <Link
               href="/cart"
-              className="w-12 h-12 flex items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200 relative"
+              className="w-12 h-12 flex items-center justify-center text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200 relative"
               aria-label={`장바구니${cartCount > 0 ? ` (${cartCount}개)` : ''}`}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -96,7 +127,7 @@ export default function Header() {
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden md:flex w-12 h-12 items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200"
+                className="hidden md:flex w-12 h-12 items-center justify-center text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200"
                 aria-label="로그인"
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,7 +139,7 @@ export default function Header() {
 
             {/* 모바일 햄버거 메뉴 버튼 */}
             <button
-              className="lg:hidden w-12 h-12 flex items-center justify-center text-chocolate-light hover:text-gold transition-colors duration-200"
+              className="lg:hidden w-12 h-12 flex items-center justify-center text-chocolate-light dark:text-neutral-300 hover:text-gold transition-colors duration-200"
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="메뉴 열기"
             >

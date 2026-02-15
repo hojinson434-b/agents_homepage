@@ -14,12 +14,12 @@ export default function CartPage() {
   // 로딩 중 스켈레톤
   if (!isLoaded) {
     return (
-      <div className="bg-cream min-h-screen">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
           <div className="h-10 w-32 bg-neutral-200 rounded-xl animate-pulse mb-8" />
           <div className="space-y-4">
             {[1, 2].map((i) => (
-              <div key={i} className="h-32 bg-white rounded-card animate-pulse" />
+              <div key={i} className="h-32 bg-white dark:bg-dm-surface rounded-card animate-pulse" />
             ))}
           </div>
         </div>
@@ -30,15 +30,15 @@ export default function CartPage() {
   // 빈 장바구니
   if (cartItems.length === 0) {
     return (
-      <div className="bg-cream min-h-screen">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
           <h1 className="font-display text-heading-1 text-chocolate mb-8">
             장바구니
           </h1>
 
-          <div className="bg-white rounded-card shadow-warm-sm p-12 text-center">
+          <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-12 text-center">
             {/* 빈 장바구니 아이콘 */}
-            <div className="w-20 h-20 mx-auto mb-6 bg-cream-dark rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-6 bg-cream-dark dark:bg-dm-card rounded-full flex items-center justify-center">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-300">
                 <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
@@ -66,7 +66,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 헤더 */}

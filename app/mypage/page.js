@@ -40,7 +40,7 @@ export default function MyPage() {
   // 로딩 중
   if (!isLoaded) {
     return (
-      <div className="bg-cream min-h-screen">
+      <div className="bg-cream dark:bg-dm-bg min-h-screen">
         <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
           <div className="h-10 w-32 bg-neutral-200 rounded-xl animate-pulse" />
         </div>
@@ -64,17 +64,17 @@ export default function MyPage() {
   }
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream dark:bg-dm-bg min-h-screen">
       <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
 
         {/* 헤더 영역 */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="font-display text-heading-1 text-chocolate">
+            <h1 className="font-display text-heading-1 text-chocolate dark:text-cream">
               마이페이지
             </h1>
             <p className="font-body text-body text-neutral-400 mt-1">
-              안녕하세요, <span className="text-chocolate font-medium">{user.name}</span>님
+              안녕하세요, <span className="text-chocolate dark:text-cream font-medium">{user.name}</span>님
             </p>
           </div>
           <button
@@ -86,7 +86,7 @@ export default function MyPage() {
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="flex gap-1 mb-8 border-b border-neutral-200">
+        <div className="flex gap-1 mb-8 border-b border-neutral-200 dark:border-dm-border">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -94,7 +94,7 @@ export default function MyPage() {
               className={`px-5 py-3 font-body text-caption font-medium transition-all duration-200 border-b-2 -mb-px ${
                 activeTab === tab.id
                   ? 'text-gold border-gold'
-                  : 'text-neutral-400 border-transparent hover:text-chocolate-light'
+                  : 'text-neutral-400 border-transparent hover:text-chocolate-light dark:text-neutral-300'
               }`}
             >
               {tab.label}
@@ -126,8 +126,8 @@ export default function MyPage() {
 function OrdersTab({ orders }) {
   if (orders.length === 0) {
     return (
-      <div className="bg-white rounded-card shadow-warm-sm p-12 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 bg-cream-dark rounded-full flex items-center justify-center">
+      <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-12 text-center">
+        <div className="w-16 h-16 mx-auto mb-4 bg-cream-dark dark:bg-dm-card rounded-full flex items-center justify-center">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-300">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
             <polyline points="14 2 14 8 20 8" />
@@ -135,7 +135,7 @@ function OrdersTab({ orders }) {
             <line x1="16" y1="17" x2="8" y2="17" />
           </svg>
         </div>
-        <h3 className="font-display text-heading-3 text-chocolate mb-2">
+        <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-2">
           주문 내역이 없습니다
         </h3>
         <p className="font-body text-caption text-neutral-400 mb-6">
@@ -154,11 +154,11 @@ function OrdersTab({ orders }) {
   return (
     <div className="space-y-4">
       {orders.map((order) => (
-        <div key={order.id} className="bg-white rounded-card shadow-warm-sm p-6">
+        <div key={order.id} className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6">
           {/* 주문 헤더 */}
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="font-accent text-caption text-chocolate font-medium">
+              <p className="font-accent text-caption text-chocolate dark:text-cream font-medium">
                 {order.id}
               </p>
               <p className="font-body text-small text-neutral-400">
@@ -174,11 +174,11 @@ function OrdersTab({ orders }) {
           <div className="space-y-2 mb-4">
             {order.items.map((item, index) => (
               <div key={index} className="flex justify-between items-center">
-                <p className="font-body text-caption text-chocolate-light">
+                <p className="font-body text-caption text-chocolate-light dark:text-neutral-300">
                   {item.productName}
                   <span className="text-neutral-400"> ({item.optionName} x {item.quantity})</span>
                 </p>
-                <span className="font-body text-caption text-chocolate font-medium">
+                <span className="font-body text-caption text-chocolate dark:text-cream font-medium">
                   {formatPrice(item.unitPrice * item.quantity)}원
                 </span>
               </div>
@@ -203,13 +203,13 @@ function OrdersTab({ orders }) {
 function WishlistTab({ products: wishlistProducts }) {
   if (wishlistProducts.length === 0) {
     return (
-      <div className="bg-white rounded-card shadow-warm-sm p-12 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 bg-cream-dark rounded-full flex items-center justify-center">
+      <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-12 text-center">
+        <div className="w-16 h-16 mx-auto mb-4 bg-cream-dark dark:bg-dm-card rounded-full flex items-center justify-center">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-300">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </div>
-        <h3 className="font-display text-heading-3 text-chocolate mb-2">
+        <h3 className="font-display text-heading-3 text-chocolate dark:text-cream mb-2">
           찜한 상품이 없습니다
         </h3>
         <p className="font-body text-caption text-neutral-400 mb-6">
@@ -261,29 +261,29 @@ function ProfileTab({ user, updateProfile }) {
   }
 
   return (
-    <div className="bg-white rounded-card shadow-warm-sm p-6 md:p-8 max-w-2xl">
-      <h3 className="font-display text-heading-2 text-chocolate mb-6">
+    <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm p-6 md:p-8 max-w-2xl">
+      <h3 className="font-display text-heading-2 text-chocolate dark:text-cream mb-6">
         회원 정보
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* 이메일 (수정 불가) */}
         <div>
-          <label className="block font-body text-caption text-chocolate font-medium mb-2">
+          <label className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
             이메일
           </label>
           <input
             type="email"
             value={user.email}
             disabled
-            className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-neutral-400 bg-cream-dark cursor-not-allowed"
+            className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-neutral-400 bg-cream-dark dark:bg-dm-card dark:text-cream cursor-not-allowed"
           />
           <p className="mt-1 font-body text-small text-neutral-300">이메일은 변경할 수 없습니다</p>
         </div>
 
         {/* 이름 */}
         <div>
-          <label htmlFor="profileName" className="block font-body text-caption text-chocolate font-medium mb-2">
+          <label htmlFor="profileName" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
             이름
           </label>
           <input
@@ -292,13 +292,13 @@ function ProfileTab({ user, updateProfile }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+            className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
           />
         </div>
 
         {/* 연락처 */}
         <div>
-          <label htmlFor="profilePhone" className="block font-body text-caption text-chocolate font-medium mb-2">
+          <label htmlFor="profilePhone" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
             연락처
           </label>
           <input
@@ -308,13 +308,13 @@ function ProfileTab({ user, updateProfile }) {
             value={formData.phone}
             onChange={handleChange}
             placeholder="010-0000-0000"
-            className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+            className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
           />
         </div>
 
         {/* 주소 */}
         <div>
-          <label htmlFor="profileAddress" className="block font-body text-caption text-chocolate font-medium mb-2">
+          <label htmlFor="profileAddress" className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
             주소
           </label>
           <input
@@ -324,13 +324,13 @@ function ProfileTab({ user, updateProfile }) {
             value={formData.address}
             onChange={handleChange}
             placeholder="기본 배송지를 입력해주세요"
-            className="w-full h-12 px-4 border border-neutral-200 rounded-xl font-body text-body text-chocolate focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
+            className="w-full h-12 px-4 border border-neutral-200 dark:border-dm-border rounded-xl font-body text-body text-chocolate dark:bg-dm-card dark:text-cream focus:border-caramel focus:ring-2 focus:ring-caramel/20 outline-none transition-all duration-200"
           />
         </div>
 
         {/* 가입일 */}
         <div>
-          <label className="block font-body text-caption text-chocolate font-medium mb-2">
+          <label className="block font-body text-caption text-chocolate dark:text-cream font-medium mb-2">
             가입일
           </label>
           <p className="font-body text-body text-neutral-400">

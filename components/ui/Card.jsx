@@ -7,7 +7,7 @@ export default function Card({
   className = '',
   ...props
 }) {
-  const baseStyles = 'bg-white rounded-card shadow-warm-sm overflow-hidden'
+  const baseStyles = 'bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border overflow-hidden'
   const hoverStyles = hover
     ? 'hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300'
     : ''

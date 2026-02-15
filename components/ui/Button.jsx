@@ -12,7 +12,7 @@ export default function Button({
 
   const variants = {
     primary: 'bg-gold text-white rounded-button hover:scale-[1.02] hover:shadow-warm-md',
-    secondary: 'border border-caramel text-chocolate-light rounded-button hover:bg-caramel hover:text-white',
+    secondary: 'border border-caramel text-chocolate-light dark:text-neutral-300 rounded-button hover:bg-caramel hover:text-white',
     ghost: 'text-caramel hover:text-gold',
   }
 
