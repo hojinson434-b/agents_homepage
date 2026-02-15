@@ -1,13 +1,12 @@
 """
-REPORT.md를 REPORT.docx로 변환하는 스크립트
+agents_homepage 통합회고보고서 — 모듈홈페이지 보고서와 동일한 형식
 """
 
 from docx import Document
-from docx.shared import Inches, Pt, Cm, RGBColor
+from docx.shared import Pt, Cm, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
-import re
 
 doc = Document()
 
@@ -18,13 +17,11 @@ font.name = 'Malgun Gothic'
 font.size = Pt(10)
 style.element.rPr.rFonts.set(qn('w:eastAsia'), 'Malgun Gothic')
 
-# 제목 스타일
 for i in range(1, 4):
     heading_style = doc.styles[f'Heading {i}']
-    heading_style.font.color.rgb = RGBColor(60, 36, 21)  # chocolate
+    heading_style.font.color.rgb = RGBColor(60, 36, 21)
     heading_style.element.rPr.rFonts.set(qn('w:eastAsia'), 'Malgun Gothic')
 
-# ── 페이지 여백 설정 ──
 sections = doc.sections
 for section in sections:
     section.top_margin = Cm(2.5)
@@ -32,14 +29,12 @@ for section in sections:
     section.left_margin = Cm(2.5)
     section.right_margin = Cm(2.5)
 
+
 # ── 유틸리티 함수 ──
 def add_table(doc, headers, rows):
-    """표 생성 함수"""
     table = doc.add_table(rows=1 + len(rows), cols=len(headers))
     table.style = 'Table Grid'
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-
-    # 헤더 행
     hdr_cells = table.rows[0].cells
     for i, header in enumerate(headers):
         hdr_cells[i].text = header
@@ -48,7 +43,6 @@ def add_table(doc, headers, rows):
             for run in paragraph.runs:
                 run.bold = True
                 run.font.size = Pt(9)
-        # 헤더 배경색
         shading = hdr_cells[i]._element.get_or_add_tcPr()
         shading_elm = shading.makeelement(qn('w:shd'), {
             qn('w:val'): 'clear',
@@ -56,8 +50,6 @@ def add_table(doc, headers, rows):
             qn('w:fill'): 'F5E6D0'
         })
         shading.append(shading_elm)
-
-    # 데이터 행
     for row_idx, row_data in enumerate(rows):
         row_cells = table.rows[row_idx + 1].cells
         for col_idx, cell_data in enumerate(row_data):
@@ -65,23 +57,20 @@ def add_table(doc, headers, rows):
             for paragraph in row_cells[col_idx].paragraphs:
                 for run in paragraph.runs:
                     run.font.size = Pt(9)
-
     doc.add_paragraph()
     return table
 
 
 def add_bold_text(paragraph, text):
-    """볼드 텍스트 추가"""
     run = paragraph.add_run(text)
     run.bold = True
     return run
 
 
-# ═══════════════════════════════════════════════
-# 보고서 작성 시작
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════
+# 표지
+# ═══════════════════════════════════════════════════════
 
-# ── 표지 ──
 for _ in range(6):
     doc.add_paragraph()
 
@@ -95,7 +84,7 @@ doc.add_paragraph()
 
 main_title = doc.add_paragraph()
 main_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-run = main_title.add_run('module_homepage vs agents_homepage\n비교 분석 보고서')
+run = main_title.add_run('디저트 쇼핑몰 홈페이지 제작 프로젝트\n통합 회고 보고서')
 run.font.size = Pt(26)
 run.bold = True
 run.font.color.rgb = RGBColor(60, 36, 21)
@@ -104,7 +93,7 @@ doc.add_paragraph()
 
 subtitle = doc.add_paragraph()
 subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
-run = subtitle.add_run('2차 프로젝트와 3차 프로젝트의 개발 방식·결과·병목 현상 비교 분석')
+run = subtitle.add_run('프로젝트 개요  |  병목 현상  |  2차 프로젝트 비교  |  교훈')
 run.font.size = Pt(11)
 run.font.color.rgb = RGBColor(139, 109, 82)
 
@@ -113,515 +102,339 @@ for _ in range(4):
 
 date_para = doc.add_paragraph()
 date_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-run = date_para.add_run('작성일: 2026년 2월 15일')
+run = date_para.add_run('2026년 2월 15일')
 run.font.size = Pt(11)
 run.font.color.rgb = RGBColor(100, 100, 100)
 
-# 페이지 나누기
-doc.add_page_break()
+info1 = doc.add_paragraph()
+info1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run = info1.add_run('프로젝트: agents_homepage (Next.js + Vercel)')
+run.font.size = Pt(10)
+run.font.color.rgb = RGBColor(100, 100, 100)
 
-
-# ═══════════════════════════════════════════════
-# 목차
-# ═══════════════════════════════════════════════
-
-doc.add_heading('목차', level=1)
-toc_items = [
-    '1. 프로젝트 기본 정보 비교',
-    '2. 개발 방식의 근본적 차이',
-    '3. 기술 스택 비교',
-    '4. 아키텍처 비교',
-    '5. 병목 현상 추적 — 2차에서 3차로',
-    '6. 반복 실수 추적 — 2차에서 3차로',
-    '7. 규모 및 산출물 비교',
-    '8. 프로젝트별 고유 강점',
-    '9. 시간 효율 비교',
-    '10. 3개 프로젝트 성장 곡선',
-    '11. 결론 및 다음 프로젝트 제언',
-]
-for item in toc_items:
-    p = doc.add_paragraph(item)
-    p.paragraph_format.space_after = Pt(4)
+info2 = doc.add_paragraph()
+info2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run = info2.add_run('배포 URL: Vercel 자동 배포 (GitHub 연동)')
+run.font.size = Pt(10)
+run.font.color.rgb = RGBColor(100, 100, 100)
 
 doc.add_page_break()
 
 
-# ═══════════════════════════════════════════════
-# 1. 프로젝트 기본 정보 비교
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════
+# 1. 프로젝트 개요
+# ═══════════════════════════════════════════════════════
 
-doc.add_heading('1. 프로젝트 기본 정보 비교', level=1)
+doc.add_heading('1. 프로젝트 개요', level=1)
+
+doc.add_paragraph(
+    '알앤디파크의 세 번째 웹 프로젝트로, 프리미엄 디저트 판매 쇼핑몰 "Douceur"입니다. '
+    '1차 프로젝트(rndpark-homepage)와 2차 프로젝트(module_homepage)의 교훈을 바탕으로, '
+    '기술 스택을 Next.js 14 + Tailwind CSS로 전환하고 개발 도구를 Claude Code(에이전트)로 '
+    '업그레이드하여 진행했습니다.'
+)
 
 add_table(doc,
-    ['항목', 'module_homepage (2차)', 'agents_homepage (3차)'],
+    ['항목', '내용'],
     [
-        ['프로젝트명', 'module_homepage (모듈식 쇼핑몰)', 'agents_homepage (Douceur 디저트 쇼핑몰)'],
-        ['프로젝트 성격', '다나와형 가격비교 + 쿠팡형 커머스', '프리미엄 디저트 판매 쇼핑몰'],
-        ['디자인 컨셉', '다나와/쿠팡 스타일 + 4개 테마 전환', '"Patisserie Moderne" — 파리 파티스리 우아함 + 현대적 미니멀리즘'],
-        ['대상 사용자', '가격비교·PC견적 사용자', '디저트 구매 고객 (20~40대 여성 중심)'],
-        ['배포 URL', 'module-homepage.web.app', 'Vercel 자동 배포'],
-        ['개발 도구', 'Claude 채팅 (바이브코딩)', 'Claude Code (에이전트 기반)'],
-        ['선행 교훈', '1차(rndpark) 교훈 반영', '1차(rndpark) + 2차(module_homepage) 교훈 반영'],
+        ['프로젝트명', 'agents_homepage (디저트 쇼핑몰 "Douceur")'],
+        ['플랫폼', 'Next.js 14 (App Router) + React 18 + Tailwind CSS 3.4 + Vercel'],
+        ['개발 방식', 'AI 에이전트(Claude Code) 활용 — 파일 읽기/쓰기/Git 자동화'],
+        ['디자인 컨셉', '"Patisserie Moderne" — 파리 파티스리 우아함 + 현대적 미니멀리즘'],
+        ['전략', '커스텀 테마 설계 → UI 컴포넌트 → 페이지 조립 → 전역 상태 → 마무리'],
+        ['배포', 'Vercel 자동 배포 (git push → 빌드 → 배포 자동 완료)'],
     ]
 )
 
+# 완성된 페이지
+doc.add_heading('완성된 페이지 (13개)', level=2)
 
-# ═══════════════════════════════════════════════
-# 2. 개발 방식의 근본적 차이
-# ═══════════════════════════════════════════════
-
-doc.add_heading('2. 개발 방식의 근본적 차이', level=1)
-
-doc.add_heading('module_homepage — "대화형 바이브코딩"', level=2)
-p = doc.add_paragraph()
-p.add_run('[개발자]').bold = True
-p.add_run(' → Claude 채팅에 요구사항 전달 → Claude가 코드 블록으로 응답 → ')
-p.add_run('[개발자]').bold = True
-p.add_run(' → 코드를 복사하여 에디터에 붙여넣기 → 파일 생성/수정을 직접 수행 → firebase deploy 수동 실행 → 에러 발생 시 에러 메시지를 다시 채팅에 전달')
-
-p = doc.add_paragraph()
-add_bold_text(p, '장점: ')
-p.add_run('코드 한 줄 한 줄을 직접 확인하며 학습 가능')
-p = doc.add_paragraph()
-add_bold_text(p, '단점: ')
-p.add_run('복붙 과정에서 실수 발생, 컨텍스트 소진 시 맥락 재설명 필요, 파일 관리 수동')
-
-doc.add_heading('agents_homepage — "에이전트 자동화"', level=2)
-p = doc.add_paragraph()
-p.add_run('[개발자]').bold = True
-p.add_run(' → Claude Code에 요구사항 전달 → ')
-p.add_run('[Claude Code]').bold = True
-p.add_run(' → 직접 파일 읽기/쓰기/수정 → 직접 Git 커밋 수행 → 에러 발생 시 자동 분석 및 수정 시도 → git push → Vercel 자동 배포')
-
-p = doc.add_paragraph()
-add_bold_text(p, '장점: ')
-p.add_run('파일 관리 자동화, Git 이력 체계적, 컨텍스트 효율적 사용, 배포 자동')
-p = doc.add_paragraph()
-add_bold_text(p, '단점: ')
-p.add_run('코드 변경 과정을 면밀히 추적하려면 별도 확인 필요')
-
-doc.add_heading('핵심 차이 요약', level=2)
 add_table(doc,
-    ['작업', 'module_homepage (수동)', 'agents_homepage (자동)'],
+    ['구분', '페이지명', '주요 기능'],
     [
-        ['파일 생성/수정', '개발자가 직접 복붙', '에이전트가 직접 수행'],
-        ['Git 버전 관리', '수동 백업 폴더 (backup_independent)', 'Git 55개 커밋 자동 관리'],
-        ['배포', 'firebase deploy 수동 실행', 'git push → Vercel 자동 배포'],
-        ['에러 대응', '에러 메시지를 채팅에 복붙', '에이전트가 에러 자동 분석'],
-        ['컨텍스트 관리', '대화 초과 시 새 대화 + CLAUDE.md로 복구', '도구 기반 작업 + 자동 압축'],
+        ['핵심', '메인 홈 (/)', '히어로 배너 슬라이드, 인기 상품, 신상품, 브랜드 스토리, 고객 후기'],
+        ['핵심', '상품 목록 (/products)', '카테고리 필터, 정렬, 실시간 검색, URL 파라미터 연동'],
+        ['핵심', '상품 상세 (/products/[id])', '이미지 갤러리, 옵션 선택, 수량, 장바구니/찜 추가, 리뷰'],
+        ['주문', '장바구니 (/cart)', '상품 목록, 수량 변경, 삭제, 주문 요약'],
+        ['주문', '주문/결제 (/checkout)', '배송 정보 입력, 결제 수단 선택, 주문 요약'],
+        ['주문', '주문 완료 (/checkout/complete)', '주문 성공 확인, 주문번호, 상세 요약'],
+        ['인증', '로그인 (/auth/login)', '이메일/비밀번호 입력, 유효성 검증'],
+        ['인증', '회원가입 (/auth/signup)', '이름, 이메일, 비밀번호 입력, 검증'],
+        ['회원', '마이페이지 (/mypage)', '주문 내역, 찜 목록, 회원정보 수정 탭'],
+        ['정보', '브랜드 소개 (/about)', '브랜드 스토리, 철학, 팀 소개, 아틀리에'],
+        ['정보', '공지사항/FAQ (/notice)', '공지사항·FAQ 탭 전환, 아코디언 토글'],
+        ['정보', '고객센터 (/contact)', '문의 폼, 연락처, 운영 시간, 지도'],
+        ['관리', '관리자 대시보드 (/admin)', '매출 현황, 주문 관리, 상품 관리'],
     ]
 )
 
-
-# ═══════════════════════════════════════════════
-# 3. 기술 스택 비교
-# ═══════════════════════════════════════════════
-
-doc.add_heading('3. 기술 스택 비교', level=1)
+# 완성된 컴포넌트
+doc.add_heading('완성된 컴포넌트 (23개)', level=2)
 
 add_table(doc,
-    ['계층', 'module_homepage', 'agents_homepage'],
+    ['카테고리', '컴포넌트명', '역할'],
     [
-        ['프론트엔드', '순수 HTML + CSS + JavaScript', 'Next.js 14 (App Router) + React 18'],
-        ['스타일링', 'CSS 파일 (common.css + 모듈별 CSS)', 'Tailwind CSS 3.4 + 커스텀 테마'],
-        ['백엔드/DB', 'Firebase (Firestore + Auth + Hosting)', '없음 (localStorage 기반)'],
-        ['상태 관리', '없음 (각 모듈 독립)', 'React Context API (4개)'],
-        ['라우팅', 'HTML 파일 간 이동 (MPA)', 'Next.js App Router (SPA)'],
-        ['이미지 최적화', '없음 (일반 <img>)', 'next/image + onError 폴백'],
-        ['폰트', '일반 CSS 로드', 'next/font (Google Fonts 최적화)'],
-        ['배포', 'Firebase Hosting', 'Vercel (GitHub 연동 자동 배포)'],
+        ['UI (6개)', 'Button', 'Primary, Secondary, Ghost 변형 지원'],
+        ['UI', 'Card', '범용 카드 컴포넌트, 호버 효과'],
+        ['UI', 'Input', '폼 입력 필드, label 연결, 에러 표시'],
+        ['UI', 'Badge', '상품 태그 (BEST, NEW, SALE)'],
+        ['UI', 'Modal', 'ESC 닫기, 배경 클릭 닫기, 애니메이션'],
+        ['UI', 'Toast', '알림 메시지, 자동 사라짐, 타입별 아이콘'],
+        ['레이아웃 (3개)', 'Header', '반응형 네비게이션, 장바구니 뱃지, 다크모드 토글'],
+        ['레이아웃', 'Footer', '브랜드 정보, 쇼핑 링크, 고객 서비스'],
+        ['레이아웃', 'MobileMenu', '모바일 햄버거 메뉴, 접근성 지원'],
+        ['홈 전용 (5개)', 'HeroBanner', '자동 전환 슬라이드, 인디케이터'],
+        ['홈 전용', 'PopularProducts', '리뷰 기준 상위 4개, 가로 스크롤'],
+        ['홈 전용', 'NewArrivals', '신상품 필터링, 4열 그리드'],
+        ['홈 전용', 'BrandStory', '브랜드 소개, 통계 카드'],
+        ['홈 전용', 'ReviewPreview', '고객 후기 카드 미리보기'],
+        ['상품 (5개)', 'ProductCard', '배지, 할인율, 별점, 찜 버튼, onError 폴백'],
+        ['상품', 'ProductGrid', '반응형 그리드 (4열→2열), 빈 상태 처리'],
+        ['상품', 'ProductFilter', '카테고리 탭, 정렬, 실시간 검색'],
+        ['상품', 'ProductGallery', '이미지 갤러리, 썸네일 선택'],
+        ['상품', 'ProductReview', '리뷰 섹션, 별점 표시'],
+        ['장바구니 (2개)', 'CartItem', '수량 변경, 삭제 버튼'],
+        ['장바구니', 'CartSummary', '총금액 계산, 결제 버튼'],
+        ['전역 (1개)', 'Providers', 'Theme, Auth, Cart, Wishlist Context 래퍼'],
+        ['훅 (1개)', 'useScrollAnimation', 'Intersection Observer 스크롤 애니메이션'],
     ]
 )
 
-doc.add_heading('기술 스택 선택이 가져온 차이', level=2)
+# 전역 상태 연동
+doc.add_heading('전역 상태 연동 (4개 Context)', level=2)
+doc.add_paragraph('React Context API를 사용하여 전역 상태를 관리하며, 모든 Context는 localStorage와 자동 동기화됩니다.')
+
+doc.add_paragraph('CartContext: 장바구니 추가/삭제/수량변경/비우기, 총금액 자동 계산 → localStorage(douceur_cart)', style='List Bullet')
+doc.add_paragraph('AuthContext: 로그인/회원가입/로그아웃/프로필수정 → localStorage(douceur_user, douceur_members)', style='List Bullet')
+doc.add_paragraph('WishlistContext: 찜 토글/목록관리 → localStorage(douceur_wishlist)', style='List Bullet')
+doc.add_paragraph('ThemeContext: 다크/라이트 모드 전환 → localStorage(douceur_theme) + document.documentElement 토글', style='List Bullet')
+
+doc.add_page_break()
+
+
+# ═══════════════════════════════════════════════════════
+# 2. 병목 현상 분석
+# ═══════════════════════════════════════════════════════
+
+doc.add_heading('2. 병목 현상 분석', level=1)
+
+doc.add_paragraph(
+    '개발 중 시간을 크게 소모한 병목 현상 4건을 영향도 순으로 정리합니다. '
+    '2차 프로젝트(module_homepage)에서 6건이 발생한 것에 비해, 기술 스택 전환과 교훈 적용 덕분에 '
+    '병목 수 자체가 크게 줄었습니다.'
+)
+
 add_table(doc,
-    ['영향', 'module_homepage (Firebase)', 'agents_homepage (Next.js + Vercel)'],
+    ['#', '병목', '원인 → 해결', '영향도'],
     [
-        ['배포 난이도', '높음 (인증, 설정, 인덱스 수동 관리)', '낮음 (push만 하면 자동)'],
-        ['백엔드 관련 병목', '5건 중 3건이 Firebase 관련', '백엔드 없어서 발생 자체 불가'],
-        ['SEO', '별도 처리 필요', 'Next.js 메타데이터 내장'],
-        ['성능 최적화', '수동 (이미지, 폰트 등)', '프레임워크 내장 (Image, Font, Dynamic Import)'],
-        ['컴포넌트 재사용', '어려움 (HTML 복붙)', '자연스러움 (React 컴포넌트)'],
+        ['1', 'URL 파라미터 ↔ useState 동기화 버그',
+         '상품 목록에서 카테고리·정렬을 useState와 URL searchParams 두 곳에서 관리. Header 카테고리 링크 클릭 시 필터 미작동. searchParams를 단일 소스로 사용하고 useState 중복 제거로 해결',
+         '★★★★☆'],
+        ['2', 'useSearchParams Suspense 에러',
+         'Next.js 14 App Router에서 useSearchParams는 반드시 Suspense 바운더리 안에서 사용해야 함. 빌드 시 에러 발생. Suspense 래퍼 컴포넌트 추가로 해결',
+         '★★★☆☆'],
+        ['3', 'next/font 빌드 환경 호환성',
+         'next/font/google로 Playfair Display, Noto Sans KR, DM Sans 3종을 로드할 때 빌드 환경에서 에러 발생. CSS @import 방식으로 전환하여 해결',
+         '★★★☆☆'],
+        ['4', '이미지 파일 부재 시 깨짐',
+         '개발 초기에 실제 이미지 파일 없이 진행. next/image에 onError 폴백 구조를 처음부터 설계하지 않아 이미지 깨짐. onError + placehold.co 폴백 패턴을 전 컴포넌트에 적용',
+         '★★☆☆☆'],
     ]
 )
 
+doc.add_page_break()
 
-# ═══════════════════════════════════════════════
-# 4. 아키텍처 비교
-# ═══════════════════════════════════════════════
 
-doc.add_heading('4. 아키텍처 비교', level=1)
+# ═══════════════════════════════════════════════════════
+# 3. 2차(module_homepage) vs 3차(agents_homepage) 비교 분석
+# ═══════════════════════════════════════════════════════
 
-doc.add_heading('module_homepage — 모듈식 독립 구조', level=2)
-p = doc.add_paragraph()
-p.add_run('13개 모듈(auth, product, price, review, community, estimate, support, admin, order, wishlist, delivery, promotion, membership)이 각각 독립된 HTML/CSS/JS 파일로 구성. 총 39개+ 파일.')
-p = doc.add_paragraph()
-add_bold_text(p, '특징: ')
-p.add_run('각 모듈이 완전히 독립. 한 모듈 에러가 다른 모듈에 영향 없음')
-p = doc.add_paragraph()
-add_bold_text(p, '약점: ')
-p.add_run('모듈 간 연동 시 수동 통합 필요. 공통 코드 변경 시 전체 확인 필요')
+doc.add_heading('3. 2차(module_homepage) vs 3차(agents_homepage) 비교 분석', level=1)
 
-doc.add_heading('agents_homepage — 컴포넌트 트리 구조', level=2)
-p = doc.add_paragraph()
-p.add_run('Next.js App Router 기반 13개 페이지 + 23개 React 컴포넌트(ui/layout/product/home) + 4개 Context + lib 데이터 계층으로 구성.')
-p = doc.add_paragraph()
-add_bold_text(p, '특징: ')
-p.add_run('컴포넌트 재사용 극대화. Context API로 전역 상태 자연스럽게 공유')
-p = doc.add_paragraph()
-add_bold_text(p, '약점: ')
-p.add_run('프레임워크 의존도 높음. 프레임워크 이해 없이 수정 어려움')
+doc.add_paragraph(
+    '2차 프로젝트의 교훈이 3차에서 어떻게 적용되었는지, '
+    '그리고 새롭게 발생한 문제는 무엇인지 비교합니다.'
+)
 
-doc.add_heading('아키텍처 핵심 차이', level=2)
+# 예방에 성공한 것
+doc.add_heading('예방에 성공한 것 (6건)', level=2)
+
 add_table(doc,
-    ['관점', 'module_homepage', 'agents_homepage'],
+    ['항목', 'module_homepage (발생)', 'agents_homepage (예방)'],
     [
-        ['데이터 흐름', '각 모듈이 독립적으로 Firestore 호출', 'Context API로 중앙 집중 관리'],
-        ['UI 재사용', 'HTML 복붙 (재사용 어려움)', 'React 컴포넌트 (props로 변형)'],
-        ['레이아웃 공유', 'common.js로 헤더/푸터 주입', 'layout.js로 자동 적용'],
-        ['연동 방식', '독립 개발 → 사후 연동 (충돌 위험)', '처음부터 연결된 구조'],
-        ['디자인 일관성', 'common.css + CSS 변수 (사후 통합)', 'tailwind.config.js (사전 정의)'],
+        ['에뮬레이터 ↔ 프로덕션 차이',
+         'Firestore 복합 인덱스 없이 에뮬레이터 통과 → 배포 후 에러',
+         'Firebase 미사용. localStorage 기반 → 문제 자체 소멸'],
+        ['배포 설정 반복 실패',
+         '인증 만료 + firebase.json site 누락 → 3~4회 실패',
+         'Vercel 자동 배포 → git push만으로 완료. 설정 실패 0건'],
+        ['Firebase Auth 재인증',
+         '시간 경과 후 requires-recent-login 에러',
+         '자체 AuthContext + localStorage → 외부 인증 의존 없음'],
+        ['CSS 하드코딩 색상',
+         '13개 모듈에 #03C75A 등 하드코딩 → 일괄 var() 변환',
+         'tailwind.config.js에 커스텀 컬러 사전 정의 → 하드코딩 0건'],
+        ['모듈 간 연동 충돌',
+         '독립 개발 후 연동 시 의존성 충돌 → 백업 후 점진적 연동',
+         'Context API로 처음부터 전역 연결 → 연동 충돌 0건'],
+        ['변수 중복 선언 (1차 교훈)',
+         '1차에서 예방 성공, 2차에서도 유지',
+         '프레임워크 모듈 시스템 → 구조적으로 불가능'],
     ]
 )
 
-
-# ═══════════════════════════════════════════════
-# 5. 병목 현상 추적
-# ═══════════════════════════════════════════════
-
-doc.add_heading('5. 병목 현상 추적 — 2차에서 3차로', level=1)
-doc.add_paragraph('module_homepage에서 발생한 6개 병목이 agents_homepage에서 어떻게 되었는지 추적합니다.')
-
-# 병목 #1
-doc.add_heading('병목 #1: 에뮬레이터 ↔ 프로덕션 차이', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('에뮬레이터는 복합 인덱스 없이 쿼리 작동. 배포 후 where()+orderBy() 에러')
-p = doc.add_paragraph()
-add_bold_text(p, '2차 해결: ')
-p.add_run('firestore.indexes.json에 미리 정의')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('구조적 해소')
-run.bold = True
-run.font.color.rgb = RGBColor(0, 128, 0)
-p.add_run(' — Firebase 미사용. localStorage 기반이라 이 문제 자체가 존재하지 않음')
-
-# 병목 #2
-doc.add_heading('병목 #2: Firebase 배포 설정', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('인증 만료(firebase login --reauth) + firebase.json에 site 누락. 배포 3~4회 실패')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('구조적 해소')
-run.bold = True
-run.font.color.rgb = RGBColor(0, 128, 0)
-p.add_run(' — Vercel 자동 배포. git push만 하면 빌드·배포 자동 완료')
-
-# 병목 #3
-doc.add_heading('병목 #3: Firebase Auth 재인증', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('로그인 후 시간 경과 시 requires-recent-login 에러')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('구조적 해소')
-run.bold = True
-run.font.color.rgb = RGBColor(0, 128, 0)
-p.add_run(' — 자체 AuthContext + localStorage. 외부 인증 서비스 의존 없음')
-
-# 병목 #4
-doc.add_heading('병목 #4: CSS 변수 일괄 전환', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('13개 모듈에 하드코딩 색상(#03C75A 등) → var(--primary)로 일괄 변환 필요')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('교훈 적용 성공')
-run.bold = True
-run.font.color.rgb = RGBColor(0, 100, 180)
-p.add_run(' — tailwind.config.js에 커스텀 컬러를 처음부터 정의. 하드코딩 색상 0건')
-
-# 병목 #5
-doc.add_heading('병목 #5: 모듈 간 연동 충돌', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('독립 개발 후 연동 시 의존성 충돌')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('구조적 해소')
-run.bold = True
-run.font.color.rgb = RGBColor(0, 128, 0)
-p.add_run(' — React Context API로 전역 상태 공유. 연동 충돌 자체가 발생하지 않음')
-
-# 병목 #6
-doc.add_heading('병목 #6: 대화 컨텍스트 소진', level=2)
-p = doc.add_paragraph()
-add_bold_text(p, '2차 현상: ')
-p.add_run('13개 모듈 작업량으로 컨텍스트 초과')
-p = doc.add_paragraph()
-add_bold_text(p, '3차 상태: ')
-run = p.add_run('크게 개선')
-run.bold = True
-run.font.color.rgb = RGBColor(200, 150, 0)
-p.add_run(' — Claude Code는 도구 기반 작업이라 컨텍스트 효율적 사용. 자동 압축 기능 지원')
-
-doc.add_heading('병목 추적 요약', level=2)
-add_table(doc,
-    ['상태', '건수', '해당 병목'],
-    [
-        ['구조적 해소 (기술 스택 변경으로 문제 소멸)', '4건', '#1 인덱스, #2 배포 설정, #3 Auth 재인증, #5 모듈 연동'],
-        ['교훈 적용 성공 (의식적 예방으로 0건 달성)', '1건', '#4 CSS 하드코딩'],
-        ['크게 개선 (발생 빈도 감소)', '1건', '#6 컨텍스트 소진'],
-    ]
-)
-p = doc.add_paragraph()
-run = p.add_run('6개 병목 중 5개 해소, 1개 개선. 반복 발생 0건.')
-run.bold = True
-
-
-# ═══════════════════════════════════════════════
-# 6. 반복 실수 추적
-# ═══════════════════════════════════════════════
-
-doc.add_heading('6. 반복 실수 추적 — 2차에서 3차로', level=1)
-doc.add_paragraph('module_homepage에서 rndpark(1차)와 동일하게 반복된 실수 4건이 agents_homepage에서 어떻게 되었는지 추적합니다.')
+# 여전히 반복된 실수
+doc.add_heading('여전히 반복된 실수 (2건, 단 영향도 크게 감소)', level=2)
 
 add_table(doc,
-    ['#', '반복 실수', 'rndpark (1차)', 'module_homepage (2차)', 'agents_homepage (3차)', '판정'],
+    ['실수', 'module_homepage', 'agents_homepage', '변화'],
     [
-        ['1', '배포 설정 반복 실패', 'Google Drive 경로 혼동 → 배포마다 10분+', '인증 만료 + site 누락 → 3~4회 반복', 'Vercel 자동 배포 → 설정 불필요', '3차 완전 해소'],
-        ['2', '브라우저 캐시 미반영', '수정 후 화면 미반영 → 매번 혼란', 'CSS 적용 안 됨 → 캐시+우선순위', 'Next.js 핫 리로드 + Vercel 캐시 무효화', '3차 크게 개선'],
-        ['3', 'CSS 하드코딩', '인라인 style 남용 → 6개 파일 수정', '하드코딩 → 13개 모듈 일괄 변환', 'Tailwind 커스텀 테마 → 하드코딩 0건', '3차 완전 예방'],
-        ['4', '컨텍스트 소진', '토큰 한계 → 맥락 재설명 부담', '13개 모듈 → 컨텍스트 초과', 'Claude Code 도구 기반 + 자동 압축', '3차 크게 개선'],
+        ['CSS/스타일 사후 수정',
+         '하드코딩 색상 → 13개 모듈 일괄 전환 (수시간)',
+         '다크모드 dark: 클래스를 전체 컴포넌트에 사후 추가',
+         '범위 축소: 13개 모듈 → Tailwind 클래스 추가로 간소화'],
+        ['컨텍스트 소진',
+         '13개 모듈 작업량 → 컨텍스트 초과',
+         'Claude Code 도구 기반으로 크게 개선. 단, 대규모 작업 시 여전히 한계',
+         '빈도 감소: 매번 → 간헐적'],
     ]
 )
 
-p = doc.add_paragraph()
-p.add_run('분석: ').bold = True
-p.add_run('1차→2차에서 반복되던 4개 실수가, 2차→3차에서는 반복 0건 달성')
-
-
-# ═══════════════════════════════════════════════
-# 7. 규모 및 산출물 비교
-# ═══════════════════════════════════════════════
-
-doc.add_heading('7. 규모 및 산출물 비교', level=1)
+# 시간 소모 비교
+doc.add_heading('시간 소모 비교', level=2)
 
 add_table(doc,
-    ['항목', 'module_homepage', 'agents_homepage'],
+    ['rndpark (1차)', 'module_homepage (2차)', 'agents_homepage (3차)'],
     [
-        ['모듈/페이지 수', '13개 모듈', '13개 페이지'],
-        ['컴포넌트 수', '없음 (모듈별 HTML)', '23개 React 컴포넌트'],
-        ['전역 상태 관리', '없음 (모듈 독립)', '4개 Context (Cart, Auth, Wishlist, Theme)'],
-        ['상품 데이터', 'Firestore DB', 'lib/products.js (12개 상품)'],
-        ['테마', '4개 (네이버, 넷플릭스, 인스타, 다나와)', '2개 (라이트, 다크)'],
-        ['Git 커밋', '기록 없음 (수동 백업)', '55개 구조화된 커밋'],
-        ['디자인 시스템', 'CSS 변수 (사후 정의)', 'Tailwind 커스텀 테마 (사전 정의)'],
-        ['접근성(a11y)', '미적용', '적용 (ARIA, 키보드, 포커스)'],
-        ['SEO', '미적용', 'Next.js 메타데이터 적용'],
-        ['반응형', '부분 적용', '모바일 퍼스트 전면 적용'],
-        ['이미지 최적화', '없음', 'next/image + onError 폴백'],
+        ['규칙 없이 시작\n→ 8~13시간 낭비',
+         '규칙 세팅 후 시작\n→ 4~8시간으로 감소',
+         '규칙 + 프레임워크 + 에이전트\n→ 1~2시간으로 감소'],
     ]
 )
 
-doc.add_heading('기능 범위 비교', level=2)
+doc.add_page_break()
+
+
+# ═══════════════════════════════════════════════════════
+# 4. 이번 프로젝트 고유 교훈
+# ═══════════════════════════════════════════════════════
+
+doc.add_heading('4. 이번 프로젝트 고유 교훈', level=1)
+
+doc.add_paragraph(
+    'module_homepage에서는 경험하지 못했던, agents_homepage에서 새로 얻은 교훈입니다.'
+)
+
+# 4-1. 개발 도구 전환의 효과
+doc.add_heading('4-1. 개발 도구 전환의 효과 (채팅 → 에이전트)', level=2)
+
 add_table(doc,
-    ['기능', 'module_homepage', 'agents_homepage'],
+    ['장점', '단점'],
     [
-        ['회원 인증 (로그인/가입)', 'O', 'O'],
-        ['상품 목록/상세', 'O', 'O'],
-        ['카테고리 필터', 'O', 'O'],
-        ['검색', 'O', 'O'],
-        ['장바구니', 'O', 'O'],
-        ['찜/위시리스트', 'O', 'O'],
-        ['주문/체크아웃', 'O', 'O'],
-        ['마이페이지', 'O', 'O'],
-        ['관리자 대시보드', 'O', 'O'],
-        ['고객센터/문의', 'O', 'O'],
-        ['공지사항/FAQ', 'O', 'O'],
-        ['브랜드 소개', '—', 'O'],
-        ['가격비교', 'O', '—'],
-        ['리뷰 CRUD', 'O', 'O (읽기 중심)'],
-        ['커뮤니티 게시판', 'O', '—'],
-        ['PC견적 빌더', 'O', '—'],
-        ['배송 추적', 'O', '—'],
-        ['프로모션/쿠폰', 'O', '—'],
-        ['멤버십/포인트', 'O', '—'],
-        ['다크모드', 'O (4테마)', 'O (라이트/다크)'],
+        ['파일 읽기/쓰기를 에이전트가 직접 수행 → 복붙 실수 0건', '코드 변경 과정을 실시간으로 면밀히 추적하기 어려움'],
+        ['Git 커밋을 기능 단위로 자동 관리 → 61개 구조화된 이력', '에이전트가 여러 파일을 동시에 수정할 때 의도 파악 필요'],
+        ['에러 발생 시 자동 분석 + 수정 시도 → 디버깅 시간 단축', '에이전트의 수정 방향이 의도와 다를 수 있어 확인 필요'],
+        ['배포가 git push 한 번으로 완료 → 배포 병목 완전 해소', '—'],
     ]
 )
 
-p = doc.add_paragraph()
-p.add_run('module_homepage: ').bold = True
-p.add_run('기능 범위가 더 넓음 (가격비교·PC견적·배송·프로모션·멤버십 포함)')
-p = doc.add_paragraph()
-p.add_run('agents_homepage: ').bold = True
-p.add_run('핵심 커머스 기능에 집중하되, 코드 품질·디자인·접근성·SEO가 더 높음')
+# 4-2. URL 파라미터 단일 소스 원칙
+doc.add_heading('4-2. URL 파라미터 단일 소스 원칙', level=2)
+
+doc.add_paragraph(
+    '상품 목록 페이지에서 카테고리·정렬·검색 값을 useState와 URL searchParams 두 곳에서 '
+    '동시에 관리했습니다. Header에서 카테고리 링크를 클릭하면 URL은 바뀌지만 useState는 '
+    '그대로여서 필터가 작동하지 않는 버그가 발생했습니다.'
+)
+doc.add_paragraph('URL에 반영되는 데이터는 useState로 복제하지 말 것 → searchParams.get()으로 직접 읽기', style='List Bullet')
+doc.add_paragraph('값 변경은 router.push()로 URL을 업데이트 → 컴포넌트가 자동 리렌더링', style='List Bullet')
+doc.add_paragraph('같은 데이터를 두 곳에서 관리하면 반드시 동기화 버그가 발생함', style='List Bullet')
+
+# 4-3. next/image 선행 설계
+doc.add_heading('4-3. 이미지 컴포넌트 선행 설계', level=2)
+
+doc.add_paragraph(
+    '개발 초기에 실제 이미지 파일 없이 진행하면서, 이미지 깨짐 문제가 반복되었습니다. '
+    'next/image에 onError 폴백 구조를 처음부터 설계하지 않았기 때문입니다.'
+)
+doc.add_paragraph('이미지 파일이 없어도 처음부터 next/image + onError 폴백 구조로 작성할 것', style='List Bullet')
+doc.add_paragraph('placehold.co를 폴백 URL로 사용하면 개발 중에도 깨지지 않는 UI 유지 가능', style='List Bullet')
+doc.add_paragraph('이미지는 나중에 넣되, 넣는 순간 바로 동작하는 구조를 처음부터 갖출 것', style='List Bullet')
+
+# 4-4. Next.js App Router 주의사항
+doc.add_heading('4-4. Next.js App Router 주의사항', level=2)
+
+doc.add_paragraph(
+    'Next.js 14 App Router는 서버 컴포넌트가 기본입니다. useState, useEffect, useSearchParams 등 '
+    '클라이언트 기능을 사용하려면 반드시 \'use client\'를 선언해야 하고, useSearchParams는 '
+    'Suspense 바운더리 안에서 사용해야 빌드 에러가 발생하지 않습니다.'
+)
+doc.add_paragraph("'use client'는 상태/이벤트/localStorage를 사용하는 컴포넌트에만 최소한으로 붙이기", style='List Bullet')
+doc.add_paragraph('useSearchParams 사용 시 반드시 Suspense 래퍼로 감싸기', style='List Bullet')
+doc.add_paragraph('next/font가 빌드 환경에서 실패할 수 있음 → CSS @import 방식을 대안으로 준비', style='List Bullet')
+
+# 4-5. Tailwind 커스텀 테마 전략
+doc.add_heading('4-5. Tailwind 커스텀 테마 전략', level=2)
+
+doc.add_paragraph(
+    'tailwind.config.js에 커스텀 색상(cream, chocolate, caramel, gold, rose), '
+    '커스텀 폰트(display, body, accent), 커스텀 그림자(warm-sm~xl)를 프로젝트 시작 시 '
+    '정의했습니다. 덕분에 개발 전 과정에서 하드코딩 색상 0건, 디자인 일관성을 유지할 수 있었습니다.'
+)
+doc.add_paragraph('색상·폰트·그림자를 프로젝트 1단계에서 tailwind.config.js에 확정할 것', style='List Bullet')
+doc.add_paragraph('Tailwind 기본 색상(red-500, blue-600 등) 대신 시맨틱 이름(bg-cream, text-chocolate) 사용', style='List Bullet')
+doc.add_paragraph('다크모드는 dark: 변형을 활용하되, dm-bg, dm-surface 등 다크 전용 색상도 미리 정의할 것', style='List Bullet')
+
+# 4-6. 다크모드 사후 추가의 부담
+doc.add_heading('4-6. 다크모드 사후 추가의 부담', level=2)
+
+doc.add_paragraph(
+    '라이트 모드 개발을 완료한 후 다크모드를 추가했습니다. 13개 페이지와 23개 컴포넌트에 '
+    'dark: 클래스를 일괄 추가해야 했는데, 2차 프로젝트에서 CSS 하드코딩을 사후에 변환한 것과 '
+    '유사한 패턴이었습니다. Tailwind 덕분에 CSS 변수 전환보다 훨씬 간단했지만, '
+    '처음부터 dark: 클래스를 함께 작성했다면 더 효율적이었을 것입니다.'
+)
+doc.add_paragraph('다크모드 지원 계획이 있다면 컴포넌트 작성 시 dark: 클래스를 처음부터 함께 넣을 것', style='List Bullet')
+doc.add_paragraph('tailwind.config.js에 다크모드 색상(dm-bg, dm-surface, dm-card 등)을 사전 정의한 것은 정답이었음', style='List Bullet')
+
+doc.add_page_break()
 
 
-# ═══════════════════════════════════════════════
-# 8. 프로젝트별 고유 강점
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════
+# 5. 결론
+# ═══════════════════════════════════════════════════════
 
-doc.add_heading('8. 프로젝트별 고유 강점', level=1)
+doc.add_heading('5. 결론', level=1)
 
-doc.add_heading('module_homepage만의 강점', level=2)
-add_table(doc,
-    ['강점', '설명'],
-    [
-        ['실서비스 백엔드 경험', 'Firebase Firestore + Auth를 실제 운영. 복합 인덱스, 보안 규칙, 재인증 등 실무 패턴 학습'],
-        ['대규모 모듈 관리', '13개 독립 모듈을 개발하고 연동하는 경험. 대규모 프로젝트 관리 역량 획득'],
-        ['4개 테마 전환', 'CSS 변수 기반으로 네이버·넷플릭스·인스타·다나와 테마를 런타임 전환'],
-        ['다양한 도메인 기능', '가격비교, PC견적 빌더, 배송 추적, 프로모션, 멤버십 등 다양한 비즈니스 로직 구현'],
-    ]
+doc.add_paragraph(
+    'agents_homepage는 1차(rndpark), 2차(module_homepage)의 교훈을 적극 반영한 세 번째 프로젝트입니다. '
+    '에뮬레이터-프로덕션 차이(0건), 배포 설정 실패(0건), Auth 재인증(0건), CSS 하드코딩(0건), '
+    '모듈 연동 충돌(0건), 변수 중복(0건) 등 6가지를 완전히 예방했습니다.'
 )
 
-doc.add_heading('agents_homepage만의 강점', level=2)
-add_table(doc,
-    ['강점', '설명'],
-    [
-        ['프레임워크 기반', 'Next.js 14 App Router — SSR, SSG, ISR, SEO, 이미지 최적화 등 내장 기능 활용'],
-        ['컴포넌트 재사용성', '23개 React 컴포넌트가 체계적으로 분류. props로 변형 가능'],
-        ['디자인 시스템 완성도', 'Tailwind 커스텀 테마로 색상·폰트·그림자·반응형을 사전 정의. 일관된 UI 보장'],
-        ['Git 이력 체계화', '55개 구조화된 커밋 ([세팅], [컴포넌트], [페이지], [기능], [수정] 등). 변경 추적 가능'],
-        ['접근성·SEO', 'ARIA 속성, 키보드 네비게이션, 포커스 스타일, Next.js 메타데이터 적용'],
-        ['코드 품질 규칙', 'CLAUDE.md에 12개 규칙 + 금지사항 + Tailwind 디자인 규칙 명문화'],
-    ]
+doc.add_paragraph(
+    '반면, 스타일 사후 수정(다크모드 일괄 추가)과 컨텍스트 소진은 패턴이 반복되었으나 '
+    '영향도가 크게 감소했습니다. 특히 Tailwind CSS 덕분에 다크모드 추가가 CSS 변수 전환보다 '
+    '훨씬 간단했고, Claude Code 에이전트 덕분에 컨텍스트 소진 빈도가 대폭 줄었습니다.'
+)
+
+doc.add_paragraph(
+    '또한 URL 파라미터 단일 소스 원칙, 이미지 선행 설계, Next.js Suspense 처리, '
+    'Tailwind 커스텀 테마 전략 등 이번 프로젝트에서 새로 발견한 교훈도 있었습니다. '
+    '이 경험들을 CLAUDE.md에 규칙으로 반영하여, 다음 프로젝트에서도 재활용할 수 있도록 정리했습니다.'
+)
+
+doc.add_paragraph(
+    '13개 페이지와 23개 컴포넌트를 모두 완성하고, 4개 Context로 전역 상태 관리를 구현했으며, '
+    '다크모드, 접근성(ARIA, 키보드 네비게이션), SEO 메타데이터, 성능 최적화(dynamic import, next/image)까지 '
+    '적용하여 Vercel 자동 배포를 완료했습니다.'
 )
 
 
-# ═══════════════════════════════════════════════
-# 9. 시간 효율 비교
-# ═══════════════════════════════════════════════
-
-doc.add_heading('9. 시간 효율 비교', level=1)
-
-add_table(doc,
-    ['시간 소모 영역', 'module_homepage', 'agents_homepage', '절감률'],
-    [
-        ['배포 관련', '4~8시간 (설정+인덱스+인증)', '~0시간 (Vercel 자동)', '~100%'],
-        ['CSS 통합', '수시간 (하드코딩→변수 전환)', '~0시간 (처음부터 Tailwind 테마)', '~100%'],
-        ['모듈/컴포넌트 연동', '수시간 (백업+점진적 연동)', '~0시간 (Context API 자연 연동)', '~100%'],
-        ['파일 관리', '수동 복붙 + 백업 폴더', '에이전트 자동 파일 관리', '대폭 감소'],
-        ['에러 디버깅', '에러 메시지 복붙→채팅→수정', '에이전트 자동 분석+수정', '대폭 감소'],
-        ['컨텍스트 복구', '새 대화마다 상황 설명', '자동 압축 + 도구 기반', '감소'],
-    ]
-)
-
-doc.add_heading('전체 시간 낭비 추이', level=2)
-add_table(doc,
-    ['프로젝트', '비생산적 시간 낭비', '시각화'],
-    [
-        ['rndpark (1차)', '8~13시간', '████████████████████████████'],
-        ['module_homepage (2차)', '4~8시간', '████████████████'],
-        ['agents_homepage (3차)', '~1~2시간', '████'],
-    ]
-)
-
-
-# ═══════════════════════════════════════════════
-# 10. 3개 프로젝트 성장 곡선
-# ═══════════════════════════════════════════════
-
-doc.add_heading('10. 3개 프로젝트 성장 곡선', level=1)
-
-doc.add_heading('예방 성과 누적', level=2)
-add_table(doc,
-    ['항목', 'rndpark (1차)', 'module_homepage (2차)', 'agents_homepage (3차)'],
-    [
-        ['변수 중복 선언', '발생 (3회)', '예방 성공', '예방 유지'],
-        ['백엔드 전환', '발생 (2~3시간)', '예방 성공', '예방 유지'],
-        ['파일 구조 비일관', '발생', '예방 성공', '예방 유지'],
-        ['배포 설정 반복', '발생', '반복', '3차 해소'],
-        ['브라우저 캐시', '발생', '반복', '3차 개선'],
-        ['CSS 하드코딩', '발생', '반복', '3차 예방'],
-        ['컨텍스트 소진', '발생', '반복', '3차 개선'],
-        ['Firestore 인덱스', '—', '발생', '해당 없음'],
-        ['Firebase Auth 재인증', '—', '발생', '해당 없음'],
-        ['모듈 연동 충돌', '—', '발생', '3차 해소'],
-    ]
-)
-
-doc.add_heading('프로젝트별 교훈 누적', level=2)
-
-p = doc.add_paragraph()
-run = p.add_run('1차 (rndpark)')
-run.bold = True
-run.font.size = Pt(11)
-doc.add_paragraph('교훈 3개 획득: 변수 관리, 백엔드 확정, 파일 구조 통일', style='List Bullet')
-doc.add_paragraph('CLAUDE.md 개념 없음', style='List Bullet')
-
-p = doc.add_paragraph()
-run = p.add_run('2차 (module_homepage)')
-run.bold = True
-run.font.size = Pt(11)
-doc.add_paragraph('1차 교훈 3개 적용 → 3개 예방 성공', style='List Bullet')
-doc.add_paragraph('새 교훈 5개 획득: Firestore 인덱스, Auth 재인증, CSS 변수 전략, 모듈 연동 전략, 컨텍스트 관리', style='List Bullet')
-doc.add_paragraph('CLAUDE.md 도입 (규칙 기반 개발 시작)', style='List Bullet')
-
-p = doc.add_paragraph()
-run = p.add_run('3차 (agents_homepage)')
-run.bold = True
-run.font.size = Pt(11)
-doc.add_paragraph('1차 교훈 3개 유지', style='List Bullet')
-doc.add_paragraph('2차 교훈 5개 적용 → 병목 6개 중 5개 해소, 반복 실수 4개 중 4개 해소/개선', style='List Bullet')
-doc.add_paragraph('CLAUDE.md 고도화 (12개 규칙 + 금지사항 + 디자인 규칙 + 병목 교훈)', style='List Bullet')
-doc.add_paragraph('개발 도구 업그레이드 (Claude 채팅 → Claude Code 에이전트)', style='List Bullet')
-
-
-# ═══════════════════════════════════════════════
-# 11. 결론 및 다음 프로젝트 제언
-# ═══════════════════════════════════════════════
-
-doc.add_heading('11. 결론 및 다음 프로젝트 제언', level=1)
-
-doc.add_heading('결론', level=2)
-doc.add_paragraph('agents_homepage는 module_homepage의 교훈을 기술 스택 전환과 개발 도구 업그레이드로 한 단계 진화시킨 프로젝트입니다.')
-
-p = doc.add_paragraph()
-p.add_run('핵심 성과:').bold = True
-
-doc.add_paragraph('병목 6개 중 5개 구조적 해소 — Firebase → Next.js+Vercel 전환으로 배포·인덱스·인증·연동 문제 소멸', style='List Bullet')
-doc.add_paragraph('반복 실수 4개 중 4개 해소/개선 — 1차→2차에서 반복되던 패턴이 3차에서 최초로 끊김', style='List Bullet')
-doc.add_paragraph('코드 품질 상승 — 컴포넌트 재사용, 디자인 시스템, 접근성, SEO까지 커버', style='List Bullet')
-doc.add_paragraph('개발 효율 대폭 향상 — 파일 관리·Git·배포 자동화로 비생산적 시간 최소화', style='List Bullet')
-
-p = doc.add_paragraph()
-p.add_run('아쉬운 점:').bold = True
-
-doc.add_paragraph('기능 범위 축소 — module_homepage(13모듈)에 비해 가격비교·PC견적·배송·프로모션·멤버십 미포함', style='List Bullet')
-doc.add_paragraph('실서비스 백엔드 부재 — localStorage 기반이라 실제 서비스 운영에는 백엔드 추가 필요', style='List Bullet')
-doc.add_paragraph('컨텍스트 소진 완전 해소 못함 — 개선되었으나 대규모 작업 시 여전히 한계 존재', style='List Bullet')
-
-doc.add_heading('다음 프로젝트 제언', level=2)
-add_table(doc,
-    ['영역', '제언'],
-    [
-        ['기술 스택', 'Next.js + Vercel 유지. 백엔드 필요 시 Supabase 또는 Firebase를 Next.js API Routes와 연동'],
-        ['CLAUDE.md', '3개 프로젝트 교훈 전체를 If-Then 규칙으로 통합. "만약 ~하면, ~한다" 형식'],
-        ['디자인 시스템', 'Tailwind 커스텀 테마를 프로젝트 시작 1단계로 확정. 색상·폰트·그림자를 먼저 정의한 후 개발'],
-        ['배포', 'Vercel 자동 배포 유지. 배포 관련 시간 낭비를 영구적으로 제거'],
-        ['Git', 'Claude Code 에이전트 기반 Git 관리 유지. 기능 단위 커밋 습관 유지'],
-        ['컨텍스트 관리', '대규모 프로젝트 시 모듈별 CLAUDE.md 또는 진행 상태 파일 분리 고려'],
-        ['테스트', '다음 프로젝트에서는 핵심 기능(장바구니, 인증)에 대한 테스트 코드 도입 검토'],
-    ]
-)
-
-# ── 마지막 구분선 + 요약 ──
-doc.add_paragraph()
-p = doc.add_paragraph()
-run = p.add_run('요약: ')
-run.bold = True
-run.font.size = Pt(11)
-p.add_run('1차(규칙 없음) → 2차(규칙 도입) → 3차(규칙 + 도구 + 프레임워크). 매 프로젝트마다 교훈이 누적되어 병목이 줄고, 코드 품질과 개발 효율이 동시에 상승하는 성장 곡선을 그리고 있습니다.')
-
-
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════
 # 파일 저장
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════
 
-output_path = '/home/user/agents_homepage/REPORT.docx'
+output_path = '/home/user/agents_homepage/에이전트홈페이지_통합회고보고서.docx'
 doc.save(output_path)
 print(f'보고서 생성 완료: {output_path}')
