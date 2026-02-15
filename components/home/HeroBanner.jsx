@@ -1,9 +1,11 @@
 // 히어로 배너 슬라이드 컴포넌트 — 메인 페이지 최상단
 // 자동 슬라이드 (5초 간격) + 수동 인디케이터 지원
+// 배경 이미지 + 반투명 오버레이로 텍스트 가독성 확보
 
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { heroSlides } from '@/lib/products'
 
@@ -21,20 +23,43 @@ export default function HeroBanner() {
   const slide = heroSlides[current]
 
   return (
-    <section className={`${slide.bgColor} transition-colors duration-700`}>
-      <div className="max-w-wide mx-auto px-4 md:px-6 lg:px-8">
+    <section className="relative overflow-hidden">
+      {/* 배경 이미지 슬라이드 */}
+      {heroSlides.map((s, index) => (
+        <div
+          key={s.id}
+          className={`absolute inset-0 transition-opacity duration-700 ${
+            index === current ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <Image
+            src={s.image}
+            alt={s.title.replace('\n', ' ')}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={index === 0}
+          />
+        </div>
+      ))}
+
+      {/* 오버레이 — 텍스트 가독성 확보 */}
+      <div className="absolute inset-0 bg-chocolate/40" />
+
+      {/* 콘텐츠 */}
+      <div className="relative max-w-wide mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center text-center py-20 md:py-28 lg:py-36 min-h-[400px] md:min-h-[500px]">
 
           {/* 메인 타이틀 */}
           <h1
             key={slide.id}
-            className="font-display text-hero-mobile lg:text-hero-desktop text-chocolate dark:text-cream whitespace-pre-line animate-fade-in-up"
+            className="font-display text-hero-mobile lg:text-hero-desktop text-white whitespace-pre-line animate-fade-in-up drop-shadow-lg"
           >
             {slide.title}
           </h1>
 
           {/* 서브 타이틀 */}
-          <p className="font-body text-body-lg text-chocolate-light dark:text-neutral-300 mt-4 md:mt-6 max-w-content animate-fade-in">
+          <p className="font-body text-body-lg text-cream mt-4 md:mt-6 max-w-content animate-fade-in drop-shadow-md">
             {slide.subtitle}
           </p>
 
@@ -55,7 +80,7 @@ export default function HeroBanner() {
                 className={`w-3 h-3 rounded-button transition-all duration-300 ${
                   index === current
                     ? 'bg-gold w-8'
-                    : 'bg-neutral-300 hover:bg-caramel'
+                    : 'bg-white/50 hover:bg-white/80'
                 }`}
                 aria-label={`슬라이드 ${index + 1}`}
               />

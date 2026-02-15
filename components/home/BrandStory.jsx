@@ -1,5 +1,7 @@
 // 브랜드 스토리 미니 섹션 — 메인 페이지 중간에 브랜드 가치 전달
+// 파티시에 이미지 + 통계 카드 구성
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function BrandStory() {
@@ -38,23 +40,37 @@ export default function BrandStory() {
             </Link>
           </div>
 
-          {/* 이미지/통계 영역 */}
-          <div className="grid grid-cols-2 gap-6">
-            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
-              <p className="font-display text-hero-mobile text-gold">7+</p>
-              <p className="font-body text-caption text-neutral-300 mt-2">년의 경험</p>
+          {/* 이미지 + 통계 영역 */}
+          <div className="space-y-6">
+            {/* 파티시에 이미지 */}
+            <div className="relative rounded-card overflow-hidden h-64 lg:h-72">
+              <Image
+                src="/images/brand-atelier.jpg"
+                alt="Douceur 파티시에가 케이크를 데코레이션하는 모습"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
-            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
-              <p className="font-display text-hero-mobile text-gold">30+</p>
-              <p className="font-body text-caption text-neutral-300 mt-2">종의 메뉴</p>
-            </div>
-            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
-              <p className="font-display text-hero-mobile text-gold">5k+</p>
-              <p className="font-body text-caption text-neutral-300 mt-2">만족한 고객</p>
-            </div>
-            <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-6 text-center">
-              <p className="font-display text-hero-mobile text-gold">4.8</p>
-              <p className="font-body text-caption text-neutral-300 mt-2">평균 별점</p>
+
+            {/* 통계 카드 */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-5 text-center">
+                <p className="font-display text-heading-1 text-gold">7+</p>
+                <p className="font-body text-caption text-neutral-300 mt-1">년의 경험</p>
+              </div>
+              <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-5 text-center">
+                <p className="font-display text-heading-1 text-gold">30+</p>
+                <p className="font-body text-caption text-neutral-300 mt-1">종의 메뉴</p>
+              </div>
+              <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-5 text-center">
+                <p className="font-display text-heading-1 text-gold">5k+</p>
+                <p className="font-body text-caption text-neutral-300 mt-1">만족한 고객</p>
+              </div>
+              <div className="bg-chocolate-light dark:bg-dm-card rounded-card p-5 text-center">
+                <p className="font-display text-heading-1 text-gold">4.8</p>
+                <p className="font-body text-caption text-neutral-300 mt-1">평균 별점</p>
+              </div>
             </div>
           </div>
         </div>

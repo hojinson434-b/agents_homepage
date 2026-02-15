@@ -1,5 +1,6 @@
 // 브랜드 소개 페이지 — Douceur 브랜드 스토리, 철학, 팀 소개
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = {
@@ -70,8 +71,14 @@ export default function AboutPage() {
         <div className="max-w-content mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* 이미지 */}
-            <div className="bg-cream-dark dark:bg-dm-card rounded-card h-80 lg:h-96 flex items-center justify-center">
-              <span className="font-body text-body text-neutral-300">800 x 600</span>
+            <div className="relative rounded-card overflow-hidden h-80 lg:h-96">
+              <Image
+                src="/images/about-story.jpg"
+                alt="Douceur 매장 내부 — 디저트 진열대와 따뜻한 분위기"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
 
             {/* 텍스트 */}
@@ -145,7 +152,7 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-0">
-            {milestones.map((item, index) => (
+            {milestones.map((item) => (
               <div
                 key={item.year}
                 className="flex items-start gap-6 py-4 border-b border-neutral-100 last:border-b-0"
@@ -162,9 +169,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-chocolate py-16 md:py-20">
-        <div className="max-w-content mx-auto px-4 md:px-6 lg:px-8 text-center">
+      {/* CTA — 배경 이미지 적용 */}
+      <section className="relative py-16 md:py-20 overflow-hidden">
+        {/* 배경 이미지 */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/about-cta.jpg"
+            alt="Douceur 프리미엄 디저트 컬렉션"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-chocolate/70" />
+        </div>
+
+        <div className="relative max-w-content mx-auto px-4 md:px-6 lg:px-8 text-center">
           <h2 className="font-display text-heading-1 text-white mb-4">
             달콤한 경험을 시작하세요
           </h2>

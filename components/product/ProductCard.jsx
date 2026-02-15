@@ -4,6 +4,8 @@
 
 'use client'
 
+import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { formatPrice } from '@/lib/utils'
 import { useWishlist } from '@/contexts/WishlistContext'
@@ -17,9 +19,13 @@ const badgeVariantMap = {
 }
 
 export default function ProductCard({ product }) {
-  const { id, name, description, price, salePrice, badge, rating, reviewCount } = product
+  const { id, name, description, price, salePrice, badge, rating, reviewCount, images } = product
   const { toggleWishlist, isInWishlist } = useWishlist()
   const wishlisted = isInWishlist(id)
+  const [imgError, setImgError] = useState(false)
+
+  // 상품 이미지 경로 (첫 번째 이미지 사용)
+  const imageSrc = images && images.length > 0 ? images[0] : null
 
   // 할인율 계산
   const discountRate = salePrice
@@ -37,12 +43,26 @@ export default function ProductCard({ product }) {
     <Link href={`/products/${id}`}>
       <div className="bg-white dark:bg-dm-surface rounded-card shadow-warm-sm dark:shadow-none dark:border dark:border-dm-border overflow-hidden hover:shadow-warm-hover hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
         {/* 이미지 영역 */}
-        <div className="bg-cream-dark dark:bg-dm-card h-48 lg:h-56 flex items-center justify-center relative">
-          <span className="font-body text-caption text-neutral-300">600 x 450</span>
+        <div className="bg-cream-dark dark:bg-dm-card h-48 lg:h-56 relative overflow-hidden">
+          {/* 상품 이미지 또는 플레이스홀더 */}
+          {imageSrc && !imgError ? (
+            <Image
+              src={imageSrc}
+              alt={name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-body text-caption text-neutral-300">600 x 450</span>
+            </div>
+          )}
 
           {/* 배지 */}
           {badge && (
-            <div className="absolute top-3 left-3">
+            <div className="absolute top-3 left-3 z-10">
               <Badge variant={badgeVariantMap[badge] || 'default'}>
                 {badge}
               </Badge>
@@ -52,7 +72,7 @@ export default function ProductCard({ product }) {
           {/* 찜하기 버튼 */}
           <button
             onClick={handleWishlistClick}
-            className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 dark:bg-dm-surface/80 flex items-center justify-center transition-all duration-200 hover:scale-110 ${
+            className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 dark:bg-dm-surface/80 flex items-center justify-center transition-all duration-200 hover:scale-110 ${
               wishlisted ? 'text-rose' : 'text-neutral-300 hover:text-rose'
             }`}
             aria-label={wishlisted ? '찜 해제' : '찜하기'}
@@ -64,7 +84,7 @@ export default function ProductCard({ product }) {
 
           {/* 할인율 */}
           {discountRate > 0 && (
-            <div className={`absolute ${badge ? 'top-12' : 'top-3'} left-3`}>
+            <div className={`absolute ${badge ? 'top-12' : 'top-3'} left-3 z-10`}>
               <span className="bg-error text-white font-accent text-small font-medium px-2 py-1 rounded-button">
                 -{discountRate}%
               </span>
